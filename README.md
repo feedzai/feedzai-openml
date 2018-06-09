@@ -1,4 +1,6 @@
 # Feedzai OpenML API
+[![codecov](https://codecov.io/gh/feedzai/feedzai-openml/branch/master/graph/badge.svg)](https://codecov.io/gh/feedzai/feedzai-openml)
+
 
 Feedzai's extensible Machine Learning API to integrate ML platforms with Feedzai's data science and runtime environment.
 
