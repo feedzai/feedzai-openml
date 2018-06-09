@@ -1,11 +1,42 @@
-# feedzai-openml
+# Feedzai OpenML API
 
-Feedzai's OpenML libraries for abstracting the core concepts of machine learning in a pluggable and extensible way.
+Feedzai's extensible Machine Learning API to integrate ML platforms with Feedzai's data science and runtime environment.
 
-This project assembles the APIs that one must implement to provide new machine learning algorithms in Feedzai platform. 
+## Usage
+The `openml-example` shows how a new provider can be implemented.
+
+When building your OpenML Provider using Maven you can add dependencies on the artifacts in this repository. They are:
+
+### OpenML API
+These are the main concepts that must extended/implemented to allow interaction with a new platform.
+
+```xml
+<dependency>
+  <groupId>com.feedzai</groupId>
+  <artifactId>openml-api</artifactId>
+  <version>1.0.0</version>
+</dependency>
+```
+
+### OpenML Utils
+Library of helpful code to ease the manipulation of some of the core concepts.
+
+```xml
+<dependency>
+  <groupId>com.feedzai</groupId>
+  <artifactId>openml-utils</artifactId>
+  <version>1.0.0</version>
+</dependency>
+```
+
+## Building
+This is a maven project which you can build using
+```bash
+mvn clean install
+```
 
 
-## Getting Started
+## Developing
 
 The key concept is that of a `MachineLearningProvider`, i.e., implementations of that interface are capable of yielding objects that can load machine learning models (already trained) in a way that Feedzai platform can use them.
 
