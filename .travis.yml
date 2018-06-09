@@ -6,10 +6,11 @@ after_success:
   - bash <(curl -s https://codecov.io/bash)
 
 notifications:
+    # enables comments in the branch with the CI results
     webhooks: https://www.travisbuddy.com/
 
 deploy:
   provider: script
-  script:
+  script: deploy/deploy.sh
   on:
     tags: true

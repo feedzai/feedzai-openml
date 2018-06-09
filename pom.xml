@@ -32,7 +32,14 @@
         <module>openml-example</module>
     </modules>
 
+    <name>Feedzai OpenML API Main</name>
     <description>Group of modules related with the OpenML API</description>
+    <url>https://github.com/feedzai/feedzai-openml</url>
+
+    <organization>
+        <name>Feedzai</name>
+        <url>https://www.feedzai.com</url>
+    </organization>
 
     <issueManagement>
         <system>GitHub</system>
@@ -42,6 +49,7 @@
     <scm>
         <url>https://github.com/feedzai/feedzai-openml</url>
         <developerConnection>scm:git:git@github.com:feedzai/feedzai-openml.git</developerConnection>
+        <connection></connection>
     </scm>
 
     <licenses>
@@ -51,6 +59,14 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
+
+    <developers>
+        <developer>
+            <name>Feedzai OpenML Cluster</name>
+            <organization>Feedzai</organization>
+            <url>https://github.com/feedzai/feedzai-openml/issues</url>
+        </developer>
+    </developers>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -229,17 +245,18 @@
             </plugin>
         </plugins>
     </build>
-    <!--FIXME OPENML Missing revapi, release plugin, git-commit-id-->
+
+    <!--FIXME OPENML Missing revapi, git-commit-id-->
+
     <profiles>
         <profile>
-            <id>ossrh</id>
+            <id>release</id>
             <properties>
                 <gpg.executable>gpg</gpg.executable>
                 <gpg.keyname>${env.PGP_KEY_ID}</gpg.keyname>
                 <gpg.passphrase>${env.PGP_PASS}</gpg.passphrase>
                 <gpg.defaultKeyring>false</gpg.defaultKeyring>
-                <gpg.publicKeyring>${gpg.dir}/pubring.gpg</gpg.publicKeyring>
-                <gpg.secretKeyring>${gpg.dir}/secring.gpg</gpg.secretKeyring>
+                <gpg.homedir>${user.dir}/.gnupg</gpg.homedir>
             </properties>
             <activation>
                 <property>
@@ -263,18 +280,18 @@
                             </execution>
                         </executions>
                     </plugin>
-                    <!--<plugin>-->
-                        <!--<groupId>org.sonatype.plugins</groupId>-->
-                        <!--<artifactId>nexus-staging-maven-plugin</artifactId>-->
-                        <!--<version>1.6.2</version>-->
-                        <!--<extensions>true</extensions>-->
-                        <!--<configuration>-->
-                            <!--<serverId>ossrh</serverId>-->
-                            <!--<nexusUrl>https://oss.sonatype.org/</nexusUrl>-->
-                            <!--&lt;!&ndash;FIXME change after validation&ndash;&gt;-->
-                            <!--<autoReleaseAfterClose>false</autoReleaseAfterClose>-->
-                        <!--</configuration>-->
-                    <!--</plugin>-->
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>1.6.7</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>ossrh</serverId>
+                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                            <!--FIXME change after validation of the CD process-->
+                            <autoReleaseAfterClose>false</autoReleaseAfterClose>
+                        </configuration>
+                    </plugin>
                 </plugins>
             </build>
         </profile>
