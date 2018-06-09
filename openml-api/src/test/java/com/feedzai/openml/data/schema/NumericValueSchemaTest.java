@@ -41,7 +41,7 @@ public class NumericValueSchemaTest {
         assertTrue("Missing value should be valid if specified", valueSchema.validate(AbstractValueSchema.MISSING_VALUE));
         assertTrue("Validation of a null value should return true", valueSchema.validate(null));
         assertFalse("Non numeric value should not be valid", valueSchema.validate("not a number"));
-        assertTrue("Numeric value should be valid", valueSchema.validate("42"));
+        assertTrue("Numeric value should be valid", valueSchema.validate("42a"));
     }
 
     /**
