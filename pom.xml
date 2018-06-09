@@ -49,7 +49,6 @@
     <scm>
         <url>https://github.com/feedzai/feedzai-openml</url>
         <developerConnection>scm:git:git@github.com:feedzai/feedzai-openml.git</developerConnection>
-        <connection></connection>
     </scm>
 
     <licenses>

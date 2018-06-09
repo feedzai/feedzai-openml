@@ -8,8 +8,9 @@ signed and pushed to Sonatype.
 ## Deploying from a local machine
 
 First of all it is important to realise that [jgitver](https://github.com/jgitver/jgitver) will calculate the version 
-to deploy based on Git history. If you want to deploy a `MAJOR.MINOR.PATCH` version you must be in the `master` branch
-with `HEAD` on an annotated tag (`git tag -a -m "<your message>" XXX.YYY.ZZZ`). 
+to deploy based on Git history. 
+If you want to deploy a `MAJOR.MINOR.PATCH` version you must be in the `master` branch
+with `HEAD` on an annotated tag (`git tag -a -m "<your message>" XXX.YYY.ZZZ`) or use `-Djgitver.use-version=XXX.YYY.ZZZ`. 
 
 To sign and deploy the artifacts locally you need to define the following environment variables (they are usually read 
 from Travis):
