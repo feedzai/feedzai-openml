@@ -32,7 +32,14 @@
         <module>openml-example</module>
     </modules>
 
+    <name>Feedzai OpenML API Main</name>
     <description>Group of modules related with the OpenML API</description>
+    <url>https://github.com/feedzai/feedzai-openml</url>
+
+    <organization>
+        <name>Feedzai</name>
+        <url>https://www.feedzai.com</url>
+    </organization>
 
     <issueManagement>
         <system>GitHub</system>
@@ -51,6 +58,14 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
+
+    <developers>
+        <developer>
+            <name>Feedzai OpenML Cluster</name>
+            <organization>Feedzai</organization>
+            <url>https://github.com/feedzai/feedzai-openml/issues</url>
+        </developer>
+    </developers>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -196,7 +211,7 @@
                         <format>html</format>
                         <format>xml</format>
                     </formats>
-                    <check />
+                    <check/>
                 </configuration>
             </plugin>
             <plugin>
@@ -227,6 +242,66 @@
             </plugin>
         </plugins>
     </build>
-    <!--FIXME OPENML Missing revapi, release plugin, git-commit-id-->
 
+    <!--FIXME OPENML Missing revapi, git-commit-id-->
+
+    <profiles>
+        <profile>
+            <id>release</id>
+            <properties>
+                <gpg.executable>gpg</gpg.executable>
+                <gpg.keyname>${env.PGP_KEY_ID}</gpg.keyname>
+                <gpg.passphrase>${env.PGP_PASS}</gpg.passphrase>
+                <gpg.defaultKeyring>false</gpg.defaultKeyring>
+                <gpg.homedir>${user.dir}/.gnupg</gpg.homedir>
+            </properties>
+            <activation>
+                <property>
+                    <name>performRelease</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.4</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>1.6.7</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>ossrh</serverId>
+                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                            <!--FIXME change after validation of the CD process-->
+                            <autoReleaseAfterClose>false</autoReleaseAfterClose>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
 </project>

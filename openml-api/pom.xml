@@ -28,16 +28,8 @@
 
     <artifactId>openml-api</artifactId>
 
+    <name>Feedzai OpenML API</name>
     <description>API classes to interact with the Feedzai Machine Learning platform.</description>
-
-
-    <licenses>
-        <license>
-            <name>FeedZai Commercial License</name>
-            <url>https://www.feedzai.com/EULA.txt</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
 
     <dependencies>
         <dependency>
