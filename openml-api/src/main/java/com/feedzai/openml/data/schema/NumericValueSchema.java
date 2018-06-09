@@ -30,6 +30,7 @@ public class NumericValueSchema extends AbstractValueSchema {
      */
     private static final long serialVersionUID = -4471978224024450702L;
 
+    int x = 2;
     /**
      * Creates a new instance.
      *
