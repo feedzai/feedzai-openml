@@ -7,3 +7,9 @@ after_success:
 
 notifications:
     webhooks: https://www.travisbuddy.com/
+
+deploy:
+  provider: script
+  script:
+  on:
+    tags: true
