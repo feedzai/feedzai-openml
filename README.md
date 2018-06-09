@@ -48,3 +48,8 @@ These are the entry point for developers:
 an implementation of either results in an OpenML provider that can be used for, respectively, loading and training external algorithms to those already provided by Feedzai.
 
 The `openml-example` project shows a trivial implementation of those concepts.
+
+### IDE Compatibility
+
+This project makes use of the [jgitver Maven plugin](https://github.com/jgitver/jgitver). When using Intellij IDEA you
+must configure the project to skip the plugin altogether: [see issue](https://github.com/jgitver/jgitver-maven-plugin/wiki/Intellij-IDEA-configuration).
