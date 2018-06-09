@@ -1,4 +1,5 @@
 # Feedzai OpenML API
+[![Build Status](https://travis-ci.org/feedzai/feedzai-openml-r.svg?branch=master)](https://travis-ci.org/feedzai/feedzai-openml-r)
 [![codecov](https://codecov.io/gh/feedzai/feedzai-openml/branch/master/graph/badge.svg)](https://codecov.io/gh/feedzai/feedzai-openml)
 
 
@@ -10,6 +11,8 @@ The `openml-example` shows how a new provider can be implemented.
 When building your OpenML Provider using Maven you can add dependencies on the artifacts in this repository. They are:
 
 ### OpenML API
+[![Maven metadata URI](https://img.shields.io/maven-metadata/v/http/central.maven.org/maven2/com/feedzai/openml-api/maven-metadata.xml.svg)](https://mvnrepository.com/artifact/com.feedzai/openml-api)
+
 These are the main concepts that must extended/implemented to allow interaction with a new platform.
 
 ```xml
@@ -21,6 +24,8 @@ These are the main concepts that must extended/implemented to allow interaction 
 ```
 
 ### OpenML Utils
+[![Maven metadata URI](https://img.shields.io/maven-metadata/v/http/central.maven.org/maven2/com/feedzai/openml-utils/maven-metadata.xml.svg)](https://mvnrepository.com/artifact/com.feedzai/openml-utils)
+
 Library of helpful code to ease the manipulation of some of the core concepts.
 
 ```xml
