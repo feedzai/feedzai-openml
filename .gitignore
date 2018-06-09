@@ -33,3 +33,9 @@ target
 *.ipr
 *.iws
 .DS_Store
+
+# Ignore GPG migration
+.gnupg/S*
+.gnupg/.gpg-v21-migrated
+.gnupg/trustdb.gpg
+.gnupg/private-keys-v1.d

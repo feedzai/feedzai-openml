@@ -26,6 +26,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>openml-example</artifactId>
+
+    <name>Feedzai OpenML Example</name>
     <description>Contains an example of a provider of Machine Learning Models implementing Feedzai's OpenML API.
         These examples are not true models (in the essence that they do not learn and simply return dummy predictions).</description>
 
