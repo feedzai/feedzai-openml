@@ -83,7 +83,7 @@ public class ParamValidationError {
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
-                .add("message", message)
+                .add("message", this.message)
                 .toString();
     }
 }

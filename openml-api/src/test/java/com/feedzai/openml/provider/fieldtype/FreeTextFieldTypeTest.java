@@ -30,16 +30,6 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public class FreeTextFieldTypeTest extends AbstractConfigFieldTypeTest<FreeTextFieldType> {
 
-    @Override
-    FreeTextFieldType getInstance() {
-        return new FreeTextFieldType("default");
-    }
-
-    @Override
-    FreeTextFieldType getAnotherInstance() {
-        return new FreeTextFieldType("another");
-    }
-
     /**
      * Tests the {@link FreeTextFieldType#validate(String, String)} method.
      */
@@ -51,7 +41,27 @@ public class FreeTextFieldTypeTest extends AbstractConfigFieldTypeTest<FreeTextF
         assertValidationResult(fieldType, "param0", null, false);
         assertValidationResult(fieldType, "param1", "", false);
         assertValidationResult(fieldType, "param2", "some string", false);
-
     }
 
+    /**
+     * Checks the default value method.
+     */
+    @Test
+    public void testDefaultValue() {
+        final String defaultValue = "default";
+        final FreeTextFieldType fieldType = new FreeTextFieldType(defaultValue);
+        assertThat(fieldType.getDefaultValue())
+                .as("The default value")
+                .isEqualTo(defaultValue);
+    }
+
+    @Override
+    FreeTextFieldType getInstance() {
+        return new FreeTextFieldType("default");
+    }
+
+    @Override
+    FreeTextFieldType getAnotherInstance() {
+        return new FreeTextFieldType("another");
+    }
 }
