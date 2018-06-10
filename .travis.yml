@@ -1,5 +1,15 @@
 language: java
 
+# Travis is configured to run on pushed branches and pull requests so if we don't filter branches it runs twice when
+# we push the PR branch in our repo
+branches:
+  only:
+    - master
+    #tag xx.yy-zz or xx.yy.zz-anythinglikeexperimental
+    - /^\d+\.\d+(\.\d+)?(-\S*)?$/
+    #hotfix branches (not being too strict on purpose)
+    - /^hf-\.*$/
+
 script: "mvn cobertura:cobertura"
 
 after_success:
