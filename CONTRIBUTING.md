@@ -30,3 +30,6 @@ As such, it is better to explicitly force that migration *before* by using a com
 
 `gpg -K --homedir=.gnupg`
 
+### IDE Integration
+
+Intellij IDEA is, at the time of this writing, incompatible with jgitver and as such it must be disabled as described [here](https://github.com/jgitver/jgitver-maven-plugin/wiki/Intellij-IDEA-configuration).
