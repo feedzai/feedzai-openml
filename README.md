@@ -19,7 +19,7 @@ These are the main concepts that must extended/implemented to allow interaction 
 <dependency>
   <groupId>com.feedzai</groupId>
   <artifactId>openml-api</artifactId>
-  <version>1.0.0</version>
+  <version>0.1.0</version>
 </dependency>
 ```
 
@@ -32,7 +32,7 @@ Library of helpful code to ease the manipulation of some of the core concepts.
 <dependency>
   <groupId>com.feedzai</groupId>
   <artifactId>openml-utils</artifactId>
-  <version>1.0.0</version>
+  <version>0.1.0</version>
 </dependency>
 ```
 
