@@ -89,6 +89,13 @@ public class MLAlgorithmDescriptorTest {
                 this.url
         );
 
+        final MLAlgorithmDescriptor desc1Clone = new MLAlgorithmDescriptor(
+                desc1.getAlgorithmName(),
+                desc1.getParameters(),
+                desc1.getAlgorithmType(),
+                desc1.getDocumentation()
+        );
+
         assertThat(desc1.toString())
                 .isNotNull()
                 .isNotEmpty()
@@ -96,11 +103,13 @@ public class MLAlgorithmDescriptorTest {
 
         assertThat(desc1)
                 .isEqualTo(desc1)
+                .isEqualTo(desc1Clone)
+                .isEqualToComparingFieldByField(desc1Clone)
                 .isNotEqualTo(null)
                 .isNotEqualTo(desc2);
 
         assertThat(desc1.hashCode())
-                .isEqualTo(desc1.hashCode())
+                .isEqualTo(desc1Clone.hashCode())
                 .isNotEqualTo(desc2.hashCode());
     }
 

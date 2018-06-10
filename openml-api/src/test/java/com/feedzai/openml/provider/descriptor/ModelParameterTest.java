@@ -67,13 +67,24 @@ public class ModelParameterTest {
                 .isNotEmpty()
                 .isNotEqualTo(differentParam);
 
+        final ModelParameter modelParameterClone = new ModelParameter(
+                modelParameter.getName(),
+                modelParameter.getDescription(),
+                modelParameter.getHelperDescription(),
+                modelParameter.isMandatory(),
+                modelParameter.getFieldType()
+        );
+
         assertThat(modelParameter)
                 .isEqualTo(modelParameter)
+                .isEqualTo(modelParameterClone)
+                .isEqualToComparingFieldByField(modelParameterClone)
                 .isNotEqualTo(null)
                 .isNotEqualTo(differentParam);
 
         assertThat(modelParameter.hashCode())
                 .isEqualTo(modelParameter.hashCode())
+                .isEqualTo(modelParameterClone.hashCode())
                 .isNotEqualTo(differentParam.hashCode());
     }
 }
