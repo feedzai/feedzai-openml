@@ -1,7 +1,13 @@
 <configuration xmlns="http://jgitver.github.io/maven/configuration/1.0.0-beta"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://jgitver.github.io/maven/configuration/1.0.0-beta https://jgitver.github.io/maven/configuration/jgitver-configuration-v1_0_0-beta.xsd ">
-    <regexVersionTag>[rv]?([0-9.]+)</regexVersionTag>
-	<nonQualifierBranches>master,hf-1.0.X,hf-1.1.X,hf-1.2.X,hf-1.3.X,hf-1.4.X,hf-2.0.X,hf-2.1.X,hf-2.2.X,hf-2.3.X</nonQualifierBranches>
+			   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			   xsi:schemaLocation="http://jgitver.github.io/maven/configuration/1.0.0-beta https://jgitver.github.io/maven/configuration/jgitver-configuration-v1_0_0-beta.xsd ">
+	<regexVersionTag>[rv]?([0-9.]+)</regexVersionTag>
+	<branchPolicies>
+		<branchPolicy>
+			<pattern>(hf-.*)</pattern> <!-- regex pattern for hotfix branches -->
+			<transformations>
+				<transformation>IGNORE</transformation>
+			</transformations>
+		</branchPolicy>
+	</branchPolicies>
 </configuration>
-
