@@ -8,7 +8,7 @@ branches:
     #tag xx.yy-zz or xx.yy.zz-anythinglikeexperimental
     - /^\d+\.\d+(\.\d+)?(-\S*)?$/
     #hotfix branches (not being too strict on purpose)
-    - /^hf-\.*$/
+    - /^hf-.*$/
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
