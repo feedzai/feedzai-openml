@@ -22,6 +22,7 @@ In parallel, Codacy runs static code analysis and displays it on [Codacy](https:
 Pull requests with failing builds will not be merged, and coverage is expected to be above 85%.
 Static code analysis issues will be evaluated ad-hoc, especially since it is common to have several warnings related to
 abstraction violations that need to be performed for performance reasons.
+When merging bug fixes, maintainers will **cherry pick the changes to the appropriate hotfix branches**.
 
 ## Releasing
 **When releasing a new Major.Minor** (read about [Semantic Versioning](https://semver.org/)) maintainers need perform a few
@@ -85,6 +86,7 @@ When the deployment process starts, a staging repository is created with the nam
 Once all validation rules finish successfully the repository is ready for closing. Our project POMs have the `autoReleaseAfterClose` property enabled so as the process finishes and the staging repository is closed, all artifacts are also published and will eventually be included in Maven Central.
 
 ### Known issues
+First of all, it is fairly common for it to take a while (up to several hours) for the artifacts to show up in the Maven searches (e.g. https://mvnrepository.com/search?q=+com.feedzai). However, they should be available for download usually within 30 minutes from the directory listings such as [http://central.maven.org/maven2/com/feedzai/](http://central.maven.org/maven2/com/feedzai/).
 Sometimes the Sonatype infrastructure will not be responsive enough and timeouts will occur while performing any of the publishing steps (creating the repo, running rules, closing the repo, etc).
 If this happens you should firstly look at the build logs in travis to understand the step where it failed. You can (and should) access the staging repository to understand the state of the repository and drop it.
 In most cases recovery is just a matter of running the build again after a while (for Sonatype's systems to be in a healthier state). To do this you can either re-run the build via the Travis UI or delete the tag and create it again:
