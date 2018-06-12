@@ -22,6 +22,7 @@ In parallel, Codacy runs static code analysis and displays it on [Codacy](https:
 Pull requests with failing builds will not be merged, and coverage is expected to be above 85%.
 Static code analysis issues will be evaluated ad-hoc, especially since it is common to have several warnings related to
 abstraction violations that need to be performed for performance reasons.
+
 When merging bug fixes, maintainers will **cherry pick the changes to the appropriate hotfix branches**.
 
 ## Releasing
@@ -31,6 +32,7 @@ steps to ensure the repository documents are updated:
    the new version
    * Create a new hotfix branch named *hf-MM.mm.X* (where MM is the Major and mm the Minor)
    * In that new branch, perform a pull request to change the badge URLs to point to the new branch
+   * Make the branch protected in the settings, so that force pushes are not allowed and PRs are mandatory
 
 **For all releases**, as the hotfix branch is ready all that's needed to actually release is to create an annotated tag 
 pointing to the hotfix branch head (example below for releasing version `1.1.0`):
