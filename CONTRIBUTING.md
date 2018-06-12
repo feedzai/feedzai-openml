@@ -44,7 +44,7 @@ git push origin 1.1.0
 
 The maven versions of these modules are controlled not by what's written in the POM but by the git history - see 
 [jgitver's page](https://github.com/jgitver/jgitver) for more info. As such, when annotated tags are pushed on the repo 
-the deploy target will be built automatically by Travis and the jars signed and pushed to Sonatype.
+the deploy target will be built automatically by Travis and the jars signed and pushed to Sonatype (see [the section on what this entails](#notes-on-sonatype-deployments)).
 
 ## Deploying from a local machine
 Since jgitver relies on git history, when deploying version MM.mm.PP to Maven Central from a local computer you must 
@@ -68,6 +68,31 @@ to the new (non-keyring) format before using them which might fail if being done
 As such, it is better to explicitly force that migration *before* by using a command like:
 
 `gpg -K --homedir=.gnupg`
+
+## Notes on Sonatype deployments
+Deployments to sonatype may be tricky so it is important to know how they work. 
+
+When the deployment process starts, a staging repository is created with the name `comfeedzai-XXXX`, which you can access at https://oss.sonatype.org/#stagingRepositories if you have credentials for it (order by descending creation date). Maven will be uploading all the artifacts to that staging repository as the deploy target is being executed on all nodes and at the end of the last artifact's upload a series of validation rules are performed remotely to ensure that at least all the following apply:
+
+  * All the POMs have 
+      * Name
+      * URL
+      * SCM information
+      * Developer information
+  * There are sources and javadocs jars
+  * All jars are PGP-signed
+  
+Once all validation rules finish successfully the repository is ready for closing. Our project POMs have the `autoReleaseAfterClose` property enabled so as the process finishes and the staging repository is closed, all artifacts are also published and will eventually be included in Maven Central.
+
+### Known issues
+Sometimes the Sonatype infrastructure will not be responsive enough and timeouts will occur while performing any of the publishing steps (creating the repo, running rules, closing the repo, etc).
+If this happens you should firstly look at the build logs in travis to understand the step where it failed. You can (and should) access the staging repository to understand the state of the repository and drop it.
+In most cases recovery is just a matter of running the build again after a while (for Sonatype's systems to be in a healthier state). To do this you can either re-run the build via the Travis UI or delete the tag and create it again:
+
+```bash
+git push origin --delete 0.1.1
+git push origin 0.1.1
+```
 
 ## Notes on IDE Integration
 Intellij IDEA is, at the time of this writing, incompatible with jgitver and as such it must be disabled as described 
