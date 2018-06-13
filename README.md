@@ -1,7 +1,7 @@
 # Feedzai OpenML API
 [![Build Status](https://travis-ci.com/feedzai/feedzai-openml.svg?branch=master)](https://travis-ci.com/feedzai/feedzai-openml)
 [![codecov](https://codecov.io/gh/feedzai/feedzai-openml/branch/master/graph/badge.svg)](https://codecov.io/gh/feedzai/feedzai-openml)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/052dc81a4434474da9a4f048c40a52eb)](https://www.codacy.com/app/feedzai/feedzai-openml?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=feedzai/feedzai-openml&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/052dc81a4434474da9a4f048c40a52eb?branch=master)](https://www.codacy.com/app/feedzai/feedzai-openml?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=feedzai/feedzai-openml&amp;utm_campaign=Badge_Grade)
 
 Feedzai's extensible Machine Learning API to integrate ML platforms with Feedzai's data science and runtime environment.
 
