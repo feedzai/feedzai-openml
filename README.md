@@ -6,14 +6,14 @@
 Feedzai's extensible Machine Learning API to integrate ML platforms with Feedzai's data science and runtime environment.
 
 ## Usage
-The `openml-example` shows how a new provider can be implemented.
+See the `openml-example` project as a trivial example of how to implement a new provider.
 
-When building your OpenML Provider using Maven you can add dependencies on the artifacts in this repository. They are:
+When building your OpenML Provider using Maven you can add dependencies on the artifacts in this repository. See the following sections to learn more about these.
 
 ### OpenML API
 [![Maven metadata URI](https://img.shields.io/maven-metadata/v/http/central.maven.org/maven2/com/feedzai/openml-api/maven-metadata.xml.svg)](https://mvnrepository.com/artifact/com.feedzai/openml-api)
 
-These are the main concepts that must extended/implemented to allow interaction with a new platform.
+This API contains the main concepts that allow interaction between Feedzai's platform and an external ML platform.
 
 ```xml
 <dependency>
@@ -27,7 +27,7 @@ These are the main concepts that must extended/implemented to allow interaction 
 ### OpenML Utils
 [![Maven metadata URI](https://img.shields.io/maven-metadata/v/http/central.maven.org/maven2/com/feedzai/openml-utils/maven-metadata.xml.svg)](https://mvnrepository.com/artifact/com.feedzai/openml-utils)
 
-Library of helpful code to ease the manipulation of some of the core concepts.
+The OpenML Utils library helps you to manipulate some of the core concepts.
 
 ```xml
 <dependency>
@@ -39,7 +39,7 @@ Library of helpful code to ease the manipulation of some of the core concepts.
 ```
 
 ## Building
-This is a maven project which you can build using
+Build this Maven project using the following command:
 ```bash
 mvn clean install
 ```
@@ -47,16 +47,15 @@ mvn clean install
 
 ## Developing
 
-The key concept is that of a `MachineLearningProvider`, i.e., implementations of that interface are capable of yielding objects that can load machine learning models (already trained) in a way that Feedzai platform can use them.
+The key concept is the `MachineLearningProvider`. To implement an OpenML provider, you have two options:
 
-An extension of that interface resides in `TrainingMachineLearningProvider`, which adds the ability to train new machine learning algorithms within Feedzai platform.
+* To load trained machine learning models to the Feedzai platform, implement the `MachineLearningProvider` interface.
 
-These are the entry point for developers:
-an implementation of either results in an OpenML provider that can be used for, respectively, loading and training external algorithms to those already provided by Feedzai.
+* To train new machine learning algorithms within the Feedzai platform, implement the `TrainingMachineLearningProvider` extension of the `MachineLearningProvider` interface.
 
-The `openml-example` project shows a trivial implementation of those concepts.
+See the `openml-example` project for a trivial implementation of those concepts.
 
 ### IDE Compatibility
 
 This project makes use of the [jgitver Maven plugin](https://github.com/jgitver/jgitver). When using Intellij IDEA you
-must configure the project to skip the plugin altogether: [see issue](https://github.com/jgitver/jgitver-maven-plugin/wiki/Intellij-IDEA-configuration).
+must configure the project to skip the plugin altogether. [See the related issue](https://github.com/jgitver/jgitver-maven-plugin/wiki/Intellij-IDEA-configuration).
