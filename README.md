@@ -53,6 +53,8 @@ The key concept is the `MachineLearningProvider`. To implement an OpenML provide
 
 * To train new machine learning algorithms within the Feedzai platform, implement the `TrainingMachineLearningProvider` extension of the `MachineLearningProvider` interface.
 
+* Finally, generate a Jar with the code (possibly with all the dependencies necessary in it, or a set of Jars instead), and make sure you include META-INF to indicate which providers you have in your code. Check out [our example in this repository](https://github.com/feedzai/feedzai-openml/blob/master/openml-example/src/main/resources/META-INF/services/com.feedzai.mlapi.provider.MachineLearningProvider).
+
 See the `openml-example` project for a trivial implementation of those concepts.
 
 ### IDE Compatibility
