@@ -28,6 +28,7 @@ import com.google.common.collect.ImmutableList;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -63,6 +64,13 @@ public abstract class AbstractProviderModelBaseTest<M extends ClassificationMLMo
      * Number of threads used by tests.
      */
     private final int maxNumberOfThreads = 8;
+
+    /**
+     * The maximum timeout (in seconds) to wait for {@link CountDownLatch}.
+     *
+     * @since 0.2.0
+     */
+    private final int latchTimeout = 3;
 
     /* * * * * * * * * * * * * * * * * * * * * * * * * * *
      *                       TESTS                       *
@@ -136,34 +144,46 @@ public abstract class AbstractProviderModelBaseTest<M extends ClassificationMLMo
     }
 
     /**
-     * Evaluates one model created (loaded/trained) in the main thread in two threads concurrently.
+     * Evaluates one model created (loaded/trained) in the main thread in multiple threads concurrently.
+     * The model will evaluate two types of instances, that will be injected at the same frequency (half of
+     * {@link #maxNumberOfThreads}).
      *
      * @throws ModelLoadingException If anything goes wrong during loading.
      * @throws ModelTrainingException If anything goes wrong during training.
      */
     @Test
-    public void createOneModelAndEvaluateInTwoThreadsTest() throws ModelLoadingException, ModelTrainingException {
+    public void createOneModelAndEvaluateInMultipleThreadsTest() throws ModelLoadingException, ModelTrainingException {
         final ExecutorService executor = Executors.newFixedThreadPool(this.maxNumberOfThreads);
         final M firstModel = getFirstModel();
 
-        final List<Future<Integer>> evaluationsList = classifyInstancesInParallel(firstModel, executor);
+        final List<Future<double[]>> evaluationsList = classDistTwoInstancesInParallel(firstModel, executor);
 
         // Wait for all classifications to finish
-        final List<Integer> classification = getUnorderedClassificationResults(evaluationsList);
+        final List<double[]> classDistributionResults = getUnorderedClassificationResults(evaluationsList);
 
-        assertThat(classification)
-                .as("There is an error with the prediction value")
-                .isSubsetOf(getClassifyValuesOfFirstModel().toArray(new Integer[0]));
+        final List<Double> minClassificationValues = classDistributionResults.stream()
+                .mapToDouble(classDistArr -> Arrays.stream(classDistArr).min().getAsDouble())
+                .boxed()
+                .collect(Collectors.toList());
+
+        minClassificationValues.stream()
+                .distinct()
+                .forEach(
+                        minValue ->
+                                assertThat(Collections.frequency(minClassificationValues, minValue))
+                                        .as("Minimum value of a classification result")
+                                        .isEqualTo(this.maxNumberOfThreads / 2)
+                );
     }
 
     /**
-     * Evaluates two models created (loaded/trained) in the main thread in two threads concurrently.
+     * Evaluates two models created (loaded/trained) in the main thread in multiple threads concurrently.
      *
      * @throws ModelLoadingException If anything goes wrong during loading.
      * @throws ModelTrainingException If anything goes wrong during training.
      */
     @Test
-    public void createTwoModelsInTwoThreadsTest() throws ModelLoadingException, ModelTrainingException {
+    public void createTwoModelsInMultipleThreadsTest() throws ModelLoadingException, ModelTrainingException {
         final ExecutorService executor = Executors.newFixedThreadPool(this.maxNumberOfThreads * 2);
         final M firstModel = getFirstModel();
         final M secondModel = getSecondModel();
@@ -176,7 +196,7 @@ public abstract class AbstractProviderModelBaseTest<M extends ClassificationMLMo
     }
 
     /**
-     * Creates (loads/trains) two models in two threads concurrently and then evaluate them in two new threads.
+     * Creates (loads/trains) two models in multiple threads concurrently and then evaluate them in multiple new threads.
      */
     @Test
     public void createModelsInThreadsAndEvaluateInOtherThreadsTest() {
@@ -244,10 +264,37 @@ public abstract class AbstractProviderModelBaseTest<M extends ClassificationMLMo
 
         final List<Future<Integer>> results = IntStream.range(0, this.maxNumberOfThreads)
                 .mapToObj(idx -> executor.submit(() -> {
-                    if (!latch.await(10, TimeUnit.SECONDS)) {
+                    if (!latch.await(latchTimeout, TimeUnit.SECONDS)) {
                         throw new RuntimeException("Timeout awaiting for tests to run in parallel");
                     }
                     return model.classify(getDummyInstance());
+                }))
+                .collect(Collectors.toList());
+
+        latch.countDown();
+        return results;
+    }
+
+    /**
+     * Classifies one of two dummy instances using a given model in parallel using a given {@link ExecutorService}.
+     * This method creates the same number of events for each dummy instance.
+     *
+     * @param model    Model to use to classify dummy instances.
+     * @param executor Executor to use to launch the threads that will classify each instance.
+     * @return A list of futures that will return the class distribution of each instance.
+     * @since 0.2.0
+     */
+    private List<Future<double[]>> classDistTwoInstancesInParallel(final M model,
+                                                                   final ExecutorService executor) {
+        final CountDownLatch latch = new CountDownLatch(1);
+
+        final List<Future<double[]>> results = IntStream.range(0, this.maxNumberOfThreads)
+                .mapToObj(idx -> executor.submit(() -> {
+                    if (!latch.await(latchTimeout, TimeUnit.SECONDS)) {
+                        throw new RuntimeException("Timeout awaiting for tests to run in parallel");
+                    }
+                    final Instance instance = idx % 2 == 0 ? getDummyInstance() : getDummyInstanceDifferentResult();
+                    return model.getClassDistribution(instance);
                 }))
                 .collect(Collectors.toList());
 
@@ -275,7 +322,7 @@ public abstract class AbstractProviderModelBaseTest<M extends ClassificationMLMo
      * @param evaluations List of futures that was returned by {@link #classifyInstancesInParallel}.
      * @return A list with the classes of the dummy instances.
      */
-    private List<Integer> getUnorderedClassificationResults(final List<Future<Integer>> evaluations) {
+    private <T> List<T> getUnorderedClassificationResults(final List<Future<T>> evaluations) {
         return evaluations.parallelStream().map(future -> {
             try {
                 return future.get();
@@ -355,6 +402,15 @@ public abstract class AbstractProviderModelBaseTest<M extends ClassificationMLMo
      * @return a dummy {@link Instance}.
      */
     public abstract Instance getDummyInstance();
+
+    /**
+     * Gets a dummy {@link Instance} to be classified by a {@link ClassificationMLModel} that returns different results
+     * from the results produced by {@link #getDummyInstance()};
+     *
+     * @return a dummy {@link Instance}.
+     * @since 0.2.0
+     */
+    public abstract Instance getDummyInstanceDifferentResult();
 
     /**
      * Create the an instance of the {@link DatasetSchema} used in tests.
