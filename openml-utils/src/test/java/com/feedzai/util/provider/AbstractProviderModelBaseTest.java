@@ -145,8 +145,9 @@ public abstract class AbstractProviderModelBaseTest<M extends ClassificationMLMo
 
     /**
      * Evaluates one model created (loaded/trained) in the main thread in multiple threads concurrently.
-     * The model will evaluate two types of instances, that will be injected at the same frequency (half of
-     * {@link #maxNumberOfThreads}).
+     * The model will evaluate two different instances, that will be injected at the same frequency (half of
+     * {@link #maxNumberOfThreads}). Afterwards, the results of the class distributions are asserted to verify that
+     * there are only two distinct results with the same frequency (half of {@link #maxNumberOfThreads}).
      *
      * @throws ModelLoadingException If anything goes wrong during loading.
      * @throws ModelTrainingException If anything goes wrong during training.
