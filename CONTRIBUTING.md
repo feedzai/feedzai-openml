@@ -33,6 +33,7 @@ steps to ensure the repository documents are updated:
    * Create a new hotfix branch named *hf-MM.mm.X* (where MM is the Major and mm the Minor)
    * In that new branch, perform a pull request to change the badge URLs to point to the new branch
    * Make the branch protected in the settings, so that force pushes are not allowed and PRs are mandatory
+   * Consider adding release notes specifiying the most relevant changes. Take as an example: https://github.com/feedzai/feedzai-openml-r/releases/tag/0.2.0
 
 **For all releases**, as the hotfix branch is ready all that's needed to actually release is to create an annotated tag 
 pointing to the hotfix branch head (example below for releasing version `1.1.0`):
