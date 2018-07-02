@@ -19,6 +19,7 @@ package com.feedzai.util.validate;
 
 import com.feedzai.openml.data.schema.CategoricalValueSchema;
 import com.feedzai.openml.data.schema.DatasetSchema;
+import com.feedzai.openml.util.validate.ValidationUtils;
 import com.feedzai.util.data.schema.TestDatasetSchemaBuilder;
 import com.google.common.collect.ImmutableMap;
 import org.junit.Test;

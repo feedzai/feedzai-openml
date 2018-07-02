@@ -20,6 +20,7 @@ package com.feedzai.util.data;
 import com.feedzai.openml.data.Instance;
 import com.feedzai.openml.data.schema.DatasetSchema;
 import com.feedzai.openml.mocks.MockInstance;
+import com.feedzai.openml.util.data.InstanceUtils;
 import com.feedzai.util.data.schema.TestDatasetSchemaBuilder;
 import com.google.common.collect.ImmutableSet;
 import org.junit.Before;

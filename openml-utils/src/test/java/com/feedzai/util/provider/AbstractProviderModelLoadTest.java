@@ -23,7 +23,7 @@ import com.feedzai.openml.provider.MachineLearningProvider;
 import com.feedzai.openml.provider.descriptor.fieldtype.ParamValidationError;
 import com.feedzai.openml.provider.exception.ModelLoadingException;
 import com.feedzai.openml.provider.model.MachineLearningModelLoader;
-import com.feedzai.util.algorithm.MLAlgorithmEnum;
+import com.feedzai.openml.util.algorithm.MLAlgorithmEnum;
 import com.google.common.io.Files;
 import org.junit.Test;
 

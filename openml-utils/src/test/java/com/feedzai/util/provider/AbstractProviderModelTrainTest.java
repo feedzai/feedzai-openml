@@ -21,7 +21,7 @@ import com.feedzai.openml.model.ClassificationMLModel;
 import com.feedzai.openml.provider.MachineLearningProvider;
 import com.feedzai.openml.provider.exception.ModelTrainingException;
 import com.feedzai.openml.provider.model.MachineLearningModelTrainer;
-import com.feedzai.util.algorithm.MLAlgorithmEnum;
+import com.feedzai.openml.util.algorithm.MLAlgorithmEnum;
 import org.junit.Test;
 
 import java.util.Map;

@@ -22,7 +22,7 @@ import com.feedzai.openml.provider.descriptor.MachineLearningAlgorithmType;
 import com.feedzai.openml.provider.descriptor.ModelParameter;
 import com.feedzai.openml.provider.descriptor.fieldtype.ModelParameterType;
 import com.feedzai.openml.provider.descriptor.fieldtype.ParamValidationError;
-import com.feedzai.util.validate.ValidationUtils;
+import com.feedzai.openml.util.validate.ValidationUtils;
 import com.google.common.collect.ImmutableMap;
 import org.junit.Test;
 

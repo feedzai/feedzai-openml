@@ -17,8 +17,8 @@
 
 package com.feedzai.util.validate;
 
-import com.feedzai.util.load.LoadModelUtils;
-import com.feedzai.util.validate.ValidationUtils;
+import com.feedzai.openml.util.load.LoadModelUtils;
+import com.feedzai.openml.util.validate.ValidationUtils;
 import com.google.common.collect.ImmutableSet;
 import org.junit.Test;
 
