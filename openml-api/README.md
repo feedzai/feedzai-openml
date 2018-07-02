@@ -11,7 +11,7 @@ To implement an OpenML provider there are two options:
 * Implement the **TrainingMachineLearningProvider** extension of the MachineLearningProvider interface to train new ML models within the Feedzai platform. It uses the __MachineLearningModelTrainer__ interface to train a model.
 
 The other key concepts are the following:
-* __MachineLearningModel__: allows to implement two types of models:
+* __MachineLearningModel__: the concept of models with two subtypes:
   * __ClassificationMLModel__
   * __RegressionMLModel__
   
