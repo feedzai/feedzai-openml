@@ -15,7 +15,7 @@
  *
  */
 
-package com.feedzai.util.validate;
+package com.feedzai.openml.util.validate;
 
 import com.feedzai.openml.provider.descriptor.MLAlgorithmDescriptor;
 import com.feedzai.openml.provider.descriptor.MachineLearningAlgorithmType;

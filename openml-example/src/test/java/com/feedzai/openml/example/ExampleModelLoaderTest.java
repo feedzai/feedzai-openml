@@ -12,7 +12,7 @@ package com.feedzai.openml.example;
 
 import com.feedzai.openml.data.schema.DatasetSchema;
 import com.feedzai.openml.provider.exception.ModelLoadingException;
-import com.feedzai.util.data.schema.TestDatasetSchemaBuilder;
+import com.feedzai.openml.util.data.schema.TestDatasetSchemaBuilder;
 import org.junit.Test;
 
 import java.nio.file.Path;

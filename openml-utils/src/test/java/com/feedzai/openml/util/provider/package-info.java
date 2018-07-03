@@ -20,4 +20,4 @@
  *
  * @since 0.1.0
  */
-package com.feedzai.util.provider;
+package com.feedzai.openml.util.provider;

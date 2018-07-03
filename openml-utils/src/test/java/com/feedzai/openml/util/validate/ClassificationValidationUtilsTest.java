@@ -15,14 +15,14 @@
  *
  */
 
-package com.feedzai.util.validate;
+package com.feedzai.openml.util.validate;
 
 import com.feedzai.openml.data.Instance;
 import com.feedzai.openml.data.schema.DatasetSchema;
 import com.feedzai.openml.model.ClassificationMLModel;
 import com.feedzai.openml.provider.exception.ModelLoadingException;
 import com.feedzai.openml.util.validate.ClassificationValidationUtils;
-import com.feedzai.util.data.schema.TestDatasetSchemaBuilder;
+import com.feedzai.openml.util.data.schema.TestDatasetSchemaBuilder;
 import org.junit.Test;
 
 import java.nio.file.Path;

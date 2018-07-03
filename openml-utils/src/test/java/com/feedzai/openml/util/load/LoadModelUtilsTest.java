@@ -15,7 +15,7 @@
  *
  */
 
-package com.feedzai.util.load;
+package com.feedzai.openml.util.load;
 
 import com.feedzai.openml.provider.exception.ModelLoadingException;
 import com.feedzai.openml.util.load.LoadModelUtils;
