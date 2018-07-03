@@ -23,6 +23,7 @@ import com.feedzai.openml.data.schema.DatasetSchema;
 import com.feedzai.openml.data.schema.FieldSchema;
 import com.feedzai.openml.data.schema.NumericValueSchema;
 import com.feedzai.openml.provider.descriptor.fieldtype.ParamValidationError;
+import com.feedzai.openml.util.validate.ValidationUtils;
 import com.feedzai.util.data.schema.TestDatasetSchemaBuilder;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;

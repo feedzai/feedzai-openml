@@ -23,7 +23,7 @@ import com.feedzai.openml.data.schema.DatasetSchema;
 import com.feedzai.openml.data.schema.FieldSchema;
 import com.feedzai.openml.data.schema.NumericValueSchema;
 import com.feedzai.openml.data.schema.StringValueSchema;
-import com.feedzai.util.data.ClassificationDatasetSchemaUtil;
+import com.feedzai.openml.util.data.ClassificationDatasetSchemaUtil;
 import com.google.common.base.Objects;
 
 import java.io.Serializable;
