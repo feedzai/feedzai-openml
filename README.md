@@ -20,7 +20,7 @@ The [OpenML API module](https://github.com/feedzai/feedzai-openml/tree/master/op
   <groupId>com.feedzai</groupId>
   <artifactId>openml-api</artifactId>
   <!-- See project tags for latest version -->
-  <version>0.2.0</version>
+  <version>0.2.1</version>
 </dependency>
 ```
 
@@ -34,7 +34,7 @@ The [openml-utils](https://github.com/feedzai/feedzai-openml/tree/master/openml-
   <groupId>com.feedzai</groupId>
   <artifactId>openml-utils</artifactId>
   <!-- See project tags for latest version -->
-  <version>0.2.0</version>
+  <version>0.2.1</version>
 </dependency>
 ```
 
