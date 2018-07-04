@@ -80,8 +80,9 @@ Once all validation rules finish successfully the repository is ready for closin
 
 ### Known issues
 First of all, it is fairly common for it to take a while (up to several hours) for the artifacts to show up in the Maven searches (e.g. https://mvnrepository.com/search?q=+com.feedzai). However, they should be available for download usually within 30 minutes from the directory listings such as [http://central.maven.org/maven2/com/feedzai/](http://central.maven.org/maven2/com/feedzai/).
-Sometimes the Sonatype infrastructure will not be responsive enough and timeouts will occur while performing any of the publishing steps (creating the repo, running rules, closing the repo, etc).
-If this happens you should firstly look at the build logs in travis to understand the step where it failed. You can (and should) access the staging repository to understand the state of the repository and drop it.
+
+Sometimes the Sonatype infrastructure will not be responsive enough and timeouts will occur while performing any of the publishing steps (creating the repo, running rules, closing the repo, etc). If this happens you should firstly look at the build logs in travis to understand the step where it failed. You can (and should) access the staging repository to understand the state of the repository and drop it.
+
 In most cases recovery is just a matter of running the build again after a while (for Sonatype's systems to be in a healthier state). To do this you can either re-run the build via the Travis UI or delete the tag and create it again:
 
 ```bash
