@@ -17,7 +17,6 @@
 
 package com.feedzai.openml.data.schema;
 
-import com.feedzai.openml.data.schema.AbstractValueSchema;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;

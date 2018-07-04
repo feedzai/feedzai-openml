@@ -19,7 +19,6 @@ package com.feedzai.openml.util.load;
 
 import com.feedzai.openml.data.schema.DatasetSchema;
 import com.feedzai.openml.provider.exception.ModelLoadingException;
-import com.feedzai.openml.util.load.LoadSchemaUtils;
 import org.junit.Test;
 
 import java.io.File;

@@ -17,8 +17,8 @@
 
 package com.feedzai.openml.provider.descriptor;
 
-import com.feedzai.openml.provider.descriptor.fieldtype.ModelParameterType;
 import com.feedzai.openml.model.MachineLearningModel;
+import com.feedzai.openml.provider.descriptor.fieldtype.ModelParameterType;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Preconditions;
 

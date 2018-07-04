@@ -17,7 +17,6 @@
 
 package com.feedzai.openml.provider.descriptor;
 
-import com.feedzai.openml.provider.descriptor.ModelParameter;
 import com.feedzai.openml.provider.descriptor.fieldtype.FreeTextFieldType;
 import org.junit.Test;
 

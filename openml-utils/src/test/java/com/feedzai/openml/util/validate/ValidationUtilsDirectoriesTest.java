@@ -18,7 +18,6 @@
 package com.feedzai.openml.util.validate;
 
 import com.feedzai.openml.util.load.LoadModelUtils;
-import com.feedzai.openml.util.validate.ValidationUtils;
 import com.google.common.collect.ImmutableSet;
 import org.junit.Test;
 
