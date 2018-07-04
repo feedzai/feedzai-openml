@@ -17,8 +17,6 @@
 
 package com.feedzai.openml.data.schema;
 
-import com.feedzai.openml.data.schema.AbstractValueSchema;
-import com.feedzai.openml.data.schema.CategoricalValueSchema;
 import com.google.common.collect.ImmutableSet;
 import org.junit.Test;
 

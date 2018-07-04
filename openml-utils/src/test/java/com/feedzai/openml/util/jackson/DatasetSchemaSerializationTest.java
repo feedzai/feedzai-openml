@@ -15,12 +15,11 @@
  *
  */
 
-package com.feedzai.util.jackson;
+package com.feedzai.openml.util.jackson;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.feedzai.openml.data.schema.DatasetSchema;
-import com.feedzai.openml.util.jackson.SerializersInModule;
-import com.feedzai.util.data.schema.TestDatasetSchemaBuilder;
+import com.feedzai.openml.util.data.schema.TestDatasetSchemaBuilder;
 import org.junit.Assert;
 import org.junit.Test;
 

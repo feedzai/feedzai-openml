@@ -17,10 +17,6 @@
 
 package com.feedzai.openml.data.schema;
 
-import com.feedzai.openml.data.schema.AbstractValueSchema;
-import com.feedzai.openml.data.schema.FieldSchema;
-import com.feedzai.openml.data.schema.NumericValueSchema;
-import com.feedzai.openml.data.schema.StringValueSchema;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

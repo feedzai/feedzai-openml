@@ -15,7 +15,7 @@
  *
  */
 
-package com.feedzai.util.data.schema;
+package com.feedzai.openml.util.data.schema;
 
 import com.feedzai.openml.data.schema.AbstractValueSchema;
 import com.feedzai.openml.data.schema.CategoricalValueSchema;

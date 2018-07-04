@@ -17,11 +17,10 @@
 
 package com.feedzai.openml.data.schema;
 
-import com.feedzai.openml.data.schema.AbstractValueSchema;
-import com.feedzai.openml.data.schema.StringValueSchema;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Tests the {@link StringValueSchema} validation behaviour.

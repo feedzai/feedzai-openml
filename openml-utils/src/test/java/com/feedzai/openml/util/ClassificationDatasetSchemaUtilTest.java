@@ -15,7 +15,7 @@
  *
  */
 
-package com.feedzai.util;
+package com.feedzai.openml.util;
 
 import com.feedzai.openml.data.schema.CategoricalValueSchema;
 import com.feedzai.openml.data.schema.DatasetSchema;

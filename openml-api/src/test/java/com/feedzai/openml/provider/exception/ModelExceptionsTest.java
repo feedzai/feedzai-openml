@@ -17,8 +17,6 @@
 
 package com.feedzai.openml.provider.exception;
 
-import com.feedzai.openml.provider.exception.ModelLoadingException;
-import com.feedzai.openml.provider.exception.ModelTrainingException;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
