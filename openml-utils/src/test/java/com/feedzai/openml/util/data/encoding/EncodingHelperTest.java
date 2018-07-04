@@ -15,15 +15,14 @@
  *
  */
 
-package com.feedzai.util.data.encoding;
+package com.feedzai.openml.util.data.encoding;
 
 import com.feedzai.openml.data.schema.CategoricalValueSchema;
 import com.feedzai.openml.data.schema.DatasetSchema;
 import com.feedzai.openml.data.schema.FieldSchema;
 import com.feedzai.openml.data.schema.NumericValueSchema;
 import com.feedzai.openml.data.schema.StringValueSchema;
-import com.feedzai.openml.util.data.encoding.EncodingHelper;
-import com.feedzai.util.data.schema.TestDatasetSchemaBuilder;
+import com.feedzai.openml.util.data.schema.TestDatasetSchemaBuilder;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import org.junit.Test;

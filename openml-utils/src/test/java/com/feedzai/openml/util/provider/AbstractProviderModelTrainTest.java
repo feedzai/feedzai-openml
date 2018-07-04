@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  */
-package com.feedzai.util.provider;
+package com.feedzai.openml.util.provider;
 
 import com.feedzai.openml.data.Dataset;
 import com.feedzai.openml.model.ClassificationMLModel;
