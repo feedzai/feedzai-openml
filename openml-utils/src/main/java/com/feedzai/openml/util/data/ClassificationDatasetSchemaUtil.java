@@ -22,6 +22,9 @@ import com.feedzai.openml.data.schema.CategoricalValueSchema;
 import com.feedzai.openml.data.schema.DatasetSchema;
 import com.feedzai.openml.model.ClassificationMLModel;
 
+import java.util.Optional;
+import java.util.function.Function;
+
 /**
  * Utilities for manipulating a {@link DatasetSchema} of a {@link ClassificationMLModel classification ML problem}.
  *
@@ -60,10 +63,29 @@ public final class ClassificationDatasetSchemaUtil {
      * @return The number of classes on the target variable.
      */
     public static int getNumClassValues(final AbstractValueSchema targetValueSchema) {
+        return withCategoricalValueSchema(
+                targetValueSchema,
+                categoricalValueSchema -> categoricalValueSchema.getNominalValues().size()
+        ).orElseThrow(() -> new RuntimeException("The target variable is not a categorical value: " + targetValueSchema));
+    }
+
+    /**
+     * Template method to execute custom functions on the {@link CategoricalValueSchema}.
+     * This method checks wether the given {@link AbstractValueSchema} is a {@link CategoricalValueSchema}, and
+     * executes the given {@link Function block} if true, otherwise returns an empty {@link Optional}.
+     *
+     * @param targetValueSchema The {@link AbstractValueSchema} of the target variable.
+     * @param block The function to execute if the given target variable schema is {@link CategoricalValueSchema categorical}.
+     * @param <T> The return type of the given {@code block}.
+     * @return An {@link Optional} with the return value of the given {@link Function block} if the
+     * received {@link AbstractValueSchema} is a {@link CategoricalValueSchema},
+     * otherwise it will return an empty {@link Optional}.
+     */
+    public static <T> Optional<T> withCategoricalValueSchema(final AbstractValueSchema targetValueSchema, final Function<CategoricalValueSchema, T> block) {
         if (targetValueSchema instanceof CategoricalValueSchema) {
-            return ((CategoricalValueSchema) targetValueSchema).getNominalValues().size();
+            return Optional.of(block.apply(((CategoricalValueSchema) targetValueSchema)));
         } else {
-            throw new RuntimeException("The target variable is not a categorical value: " + targetValueSchema);
+            return Optional.empty();
         }
     }
 }
