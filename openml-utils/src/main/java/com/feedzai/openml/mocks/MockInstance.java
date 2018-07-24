@@ -24,6 +24,7 @@ import com.feedzai.openml.data.schema.FieldSchema;
 import com.feedzai.openml.data.schema.NumericValueSchema;
 import com.feedzai.openml.data.schema.StringValueSchema;
 import com.feedzai.openml.util.data.ClassificationDatasetSchemaUtil;
+import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 
 import java.io.Serializable;
@@ -110,6 +111,13 @@ public class MockInstance implements Instance, Serializable {
         }
         final MockInstance other = (MockInstance) obj;
         return Objects.equal(this.values, other.values);
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("values", this.values)
+                .toString();
     }
 
     /**
