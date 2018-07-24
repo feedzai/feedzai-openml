@@ -25,11 +25,13 @@ import com.feedzai.openml.provider.exception.ModelTrainingException;
 import com.feedzai.openml.provider.model.MachineLearningModelLoader;
 import com.feedzai.openml.util.algorithm.MLAlgorithmEnum;
 import com.google.common.collect.ImmutableList;
+import org.apache.commons.lang3.ArrayUtils;
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.Callable;
@@ -39,6 +41,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -162,19 +165,14 @@ public abstract class AbstractProviderModelBaseTest<M extends ClassificationMLMo
         // Wait for all classifications to finish
         final List<double[]> classDistributionResults = getUnorderedClassificationResults(evaluationsList);
 
-        final List<Double> minClassificationValues = classDistributionResults.stream()
-                .mapToDouble(classDistArr -> Arrays.stream(classDistArr).min().getAsDouble())
-                .boxed()
-                .collect(Collectors.toList());
+        final Map<List<Double>, Long> groupedClassDistResults = classDistributionResults
+                .stream()
+                .map(arr -> Arrays.asList(ArrayUtils.toObject(arr)))
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 
-        minClassificationValues.stream()
-                .distinct()
-                .forEach(
-                        minValue ->
-                                assertThat(Collections.frequency(minClassificationValues, minValue))
-                                        .as("Minimum value of a classification result")
-                                        .isEqualTo(this.maxNumberOfThreads / 2)
-                );
+        groupedClassDistResults.forEach((key, count) -> assertThat(count)
+                .as(String.format("The number of times the classification %s should appear", key))
+                .isEqualTo(this.maxNumberOfThreads / 2));
     }
 
     /**
