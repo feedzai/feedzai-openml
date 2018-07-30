@@ -10,6 +10,10 @@ branches:
     #hotfix branches (not being too strict on purpose)
     - /^hf-.*$/
 
+script:
+  - mvn test -B
+  - mvn org.pitest:pitest-maven:mutationCoverage
+
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 
