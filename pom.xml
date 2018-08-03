@@ -259,10 +259,16 @@
                 <version>${pitest.version}</version>
                 <configuration>
                     <mutateStaticInitializers>true</mutateStaticInitializers>
-                    <mutationThreshold>55</mutationThreshold>
                     <mutators>
                         <mutator>ALL</mutator>
                     </mutators>
+                    <excludedMethods>
+                        <param>toString</param>
+                        <param>toStringHelper</param>
+                        <param>hashCode</param>
+                        <param>equals</param>
+                    </excludedMethods>
+                    <mutationThreshold>55</mutationThreshold>
                     <threads>2</threads>
                 </configuration>
             </plugin>
