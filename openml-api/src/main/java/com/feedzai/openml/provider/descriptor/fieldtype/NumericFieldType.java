@@ -64,6 +64,7 @@ public class NumericFieldType implements ModelParameterType {
                              final ParameterConfigType parameterType,
                              final double defaultValue) {
 
+        Preconditions.checkArgument(minValue <= maxValue, "min value should be smaller or equal to max value");
         Preconditions.checkArgument(
                 defaultValue >= minValue && defaultValue <= maxValue,
                 "The default value must be within the min and max values."
@@ -71,7 +72,7 @@ public class NumericFieldType implements ModelParameterType {
 
         this.minValue = minValue;
         this.maxValue = maxValue;
-        this.parameterType = parameterType;
+        this.parameterType = Preconditions.checkNotNull(parameterType, "Parameter type can't be null");
         this.defaultValue = defaultValue;
     }
 
@@ -110,8 +111,6 @@ public class NumericFieldType implements ModelParameterType {
      * @return A new {@link NumericFieldType}.
      */
     public static NumericFieldType range(final double minValue, final double maxValue, final ParameterConfigType parameterType, final double defaultValue) {
-        Preconditions.checkArgument(minValue <= maxValue, "min value should be smaller than max value");
-
         return new NumericFieldType(minValue, maxValue, parameterType, defaultValue);
     }
 

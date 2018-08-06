@@ -23,6 +23,7 @@ import org.junit.Test;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -43,6 +44,16 @@ public class CategoricalValueSchemaTest {
      * Test nominal values to use.
      */
     private static final Set<String> NOMINAL_VALUES = ImmutableSet.of("val0", "val1");
+
+    /**
+     * Tests creating an instance with a nullable collection of values.
+     */
+    @Test
+    public void testNullValues() {
+        assertThatThrownBy(() -> new CategoricalValueSchema(true, null))
+                .as("The error thrown by an incorrect construction of a CategoricalValueSchema")
+                .isInstanceOf(NullPointerException.class);
+    }
 
     /**
      * Tests getting the nominal values.

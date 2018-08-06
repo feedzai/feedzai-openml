@@ -19,6 +19,10 @@ package com.feedzai.openml.provider.descriptor;
 
 import com.feedzai.openml.provider.descriptor.fieldtype.FreeTextFieldType;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+
+import java.util.Collection;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -28,7 +32,16 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Nuno Diegues (nuno.diegues@feedzai.com)
  * @since 0.1.0
  */
+@RunWith(Parameterized.class)
 public class ModelParameterTest {
+
+    @Parameterized.Parameters
+    public static Object[] data() {
+        return new Object[] { true, false };
+    }
+
+    @Parameterized.Parameter
+    public boolean mandatory;
 
     /**
      * Tests for a valid parameter.
@@ -39,7 +52,7 @@ public class ModelParameterTest {
         final String paramName = "param1";
         final String descName = "desc1";
         final String help = "help1";
-        final boolean isMandatory = true;
+        final boolean isMandatory = this.mandatory;
         final FreeTextFieldType fieldType = new FreeTextFieldType("default");
 
         final ModelParameter modelParameter = new ModelParameter(paramName, descName, help, isMandatory, fieldType);
@@ -86,4 +99,6 @@ public class ModelParameterTest {
                 .isEqualTo(modelParameterClone.hashCode())
                 .isNotEqualTo(differentParam.hashCode());
     }
+
+
 }
