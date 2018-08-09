@@ -68,13 +68,13 @@ public class DatasetSchema implements Serializable {
     }
 
     /**
-     * Auxiliar method to check all the restrictions on the {@link FieldSchema} upon {@link DatasetSchema} creation.
+     * Auxiliary method to check all the restrictions on the {@link FieldSchema} upon {@link DatasetSchema} creation.
      *
      * @param fieldSchemas The List of field schemas.
      * @return The original list of field schemas if all the checks have passed. Otherwise
      * an {@link IllegalArgumentException} is thrown.
      */
-    private  List<FieldSchema> checkFieldSchemas(final List<FieldSchema> fieldSchemas) {
+    private List<FieldSchema> checkFieldSchemas(final List<FieldSchema> fieldSchemas) {
 
         Preconditions.checkNotNull(fieldSchemas, "field schemas should not be null");
 

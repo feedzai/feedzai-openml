@@ -42,6 +42,13 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
  */
 public class EncodingHelperTest {
 
+    @Test
+    public void testNull() {
+        assertThatThrownBy(() -> new EncodingHelper(null))
+                .as("The error thrown by an incorrect construction of a CategoricalValueSchema")
+                .isInstanceOf(NullPointerException.class);
+    }
+
     /**
      * Tests the encoding of different types of schema fields.
      */
@@ -220,6 +227,27 @@ public class EncodingHelperTest {
 
         assertThat(encodingHelper.encode("ERROR", fieldIndex))
                 .as("Encoding a string")
+                .isEqualTo(Double.NaN);
+    }
+
+    @Test
+    public void testEncoders() {
+        final NumericValueSchema numericValueSchema = new NumericValueSchema(true);
+        final EncodingHelper.SerializableEncoder numericEncoder = EncodingHelper.encoderForField(numericValueSchema);
+        assertThat(numericEncoder.apply(null))
+                .as("")
+                .isEqualTo(Double.NaN);
+
+        final StringValueSchema stringValueSchema = new StringValueSchema(true);
+        final EncodingHelper.SerializableEncoder stringEncoder = EncodingHelper.encoderForField(stringValueSchema);
+        assertThat(stringEncoder.apply(null))
+                .as("")
+                .isEqualTo(null);
+
+        final CategoricalValueSchema categoricalSchema = new CategoricalValueSchema(true, ImmutableSet.of());
+        final EncodingHelper.SerializableEncoder categoricalEncoder = EncodingHelper.encoderForField(categoricalSchema);
+        assertThat(categoricalEncoder.apply(null))
+                .as("")
                 .isEqualTo(Double.NaN);
     }
 }

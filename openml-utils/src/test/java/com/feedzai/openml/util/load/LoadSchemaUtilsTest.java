@@ -17,8 +17,12 @@
 
 package com.feedzai.openml.util.load;
 
+import com.feedzai.openml.data.schema.CategoricalValueSchema;
 import com.feedzai.openml.data.schema.DatasetSchema;
+import com.feedzai.openml.data.schema.NumericValueSchema;
+import com.feedzai.openml.data.schema.StringValueSchema;
 import com.feedzai.openml.provider.exception.ModelLoadingException;
+import com.google.common.collect.ImmutableSet;
 import org.junit.Test;
 
 import java.io.File;
@@ -54,10 +58,36 @@ public class LoadSchemaUtilsTest {
      * Tests that when there is an error with the json file it will return an empty optional.
      */
     @Test
-    public void notExistTest() {
+    public void dirNotExistTest() {
         assertThatThrownBy(() -> LoadSchemaUtils.datasetSchemaFromJson(Paths.get("dummy")))
                 .as("the dataset schema doesn't exist")
                 .hasMessageContaining("The path")
                 .hasMessageContaining("should be a directory");
+    }
+
+    @Test
+    public void jsonNotExistTest() {
+        final String directoryPath = getClass().getResource(File.separator + "wrong_model_000").getPath();
+
+        assertThatThrownBy(() -> LoadSchemaUtils.datasetSchemaFromJson(Paths.get(directoryPath)))
+                .as("")
+                .isInstanceOf(ModelLoadingException.class)
+                .hasMessageContaining("model.json ");
+    }
+
+    @Test
+    public void valueSchemaToString() {
+
+        assertThat(LoadSchemaUtils.getValueSchemaTypeToString(new StringValueSchema(true)))
+                .as("")
+                .isEqualTo(LoadSchemaUtils.STRING);
+
+        assertThat(LoadSchemaUtils.getValueSchemaTypeToString(new CategoricalValueSchema(true, ImmutableSet.of())))
+                .as("")
+                .isEqualTo(LoadSchemaUtils.CATEGORICAL);
+
+        assertThat(LoadSchemaUtils.getValueSchemaTypeToString(new NumericValueSchema(true)))
+                .as("")
+                .isEqualTo(LoadSchemaUtils.NUMERIC);
     }
 }

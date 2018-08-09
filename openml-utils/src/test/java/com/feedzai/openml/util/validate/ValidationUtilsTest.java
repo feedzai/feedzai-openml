@@ -52,6 +52,31 @@ public class ValidationUtilsTest {
                 .isEmpty();
     }
 
+    @Test
+    public void testBaseValidationErrors() {
+
+        final DatasetSchema schema = TestDatasetSchemaBuilder.builder()
+                .withCategoricalFields(3)
+                .withNumericalFields(3)
+                .withStringFields(3)
+                .build();
+
+        assertThat(ValidationUtils.baseLoadValidations(null, ImmutableMap.of("param1", "val1")))
+                .as("")
+                .isNotEmpty()
+                .hasSize(1);
+
+        assertThat(ValidationUtils.baseLoadValidations(schema, null))
+                .as("")
+                .isNotEmpty()
+                .hasSize(1);
+
+        assertThat(ValidationUtils.baseLoadValidations(null, null))
+                .as("")
+                .isNotEmpty()
+                .hasSize(2);
+    }
+
     /**
      * Tests that the {@link ValidationUtils#checkNoFieldsOfType(DatasetSchema, Class)} does not return errors when
      * searching for categorical fields in a schema without categoricals.
