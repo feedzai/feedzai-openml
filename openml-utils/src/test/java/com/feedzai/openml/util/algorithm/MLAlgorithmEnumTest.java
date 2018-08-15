@@ -30,8 +30,18 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+/**
+ * Class to test the behaviour of {@link MLAlgorithmEnum}.
+ *
+ * @since @@@feedzai.next.release@@@
+ * @author Pedro Rijo (pedro.rijo@feedzai.com)
+ */
 public class MLAlgorithmEnumTest {
 
+    /**
+     * Tests the {@link MLAlgorithmEnum#createDescriptor(String, Set, MachineLearningAlgorithmType, String)} with
+     * a valid input.
+     */
     @Test
     public void testCreateDescriptor() {
         final String algoName = "algoName";
@@ -39,26 +49,30 @@ public class MLAlgorithmEnumTest {
         final MachineLearningAlgorithmType algorithmType = MachineLearningAlgorithmType.BINARY_CLASSIFICATION;
         final String documentationLink = "https://feedzai.com/";
 
-        MLAlgorithmDescriptor descriptor = MLAlgorithmEnum.createDescriptor(algoName, parameters, algorithmType, documentationLink);
+        final MLAlgorithmDescriptor descriptor = MLAlgorithmEnum.createDescriptor(algoName, parameters, algorithmType, documentationLink);
 
         assertThat(descriptor.getAlgorithmName())
-                .as("")
+                .as("The descriptor algorithm name")
                 .isEqualTo(algoName);
 
         assertThat(descriptor.getParameters())
-                .as("")
+                .as("The descriptor parameters")
                 .isEqualTo(parameters);
 
         assertThat(descriptor.getAlgorithmType())
-                .as("")
+                .as("The descriptor algorithm type")
                 .isEqualTo(algorithmType);
 
         assertThat(descriptor.getDocumentation().toString())
-                .as("")
+                .as("The descriptor documentation URL")
                 .isEqualTo(documentationLink);
 
     }
 
+    /**
+     * Tests the {@link MLAlgorithmEnum#createDescriptor(String, Set, MachineLearningAlgorithmType, String)} with
+     * an invalid input.
+     */
     @Test
     public void testInvalidCreateDescriptor() {
         final String algoName = "algoName";
@@ -67,23 +81,26 @@ public class MLAlgorithmEnumTest {
         final String documentationLink = "https://feedzai.com/";
 
         assertThatThrownBy(() -> MLAlgorithmEnum.createDescriptor(null, parameters, algorithmType, documentationLink))
-                .as("")
+                .as("The exception throw by trying to create a descriptor with null algorithm name")
                 .isInstanceOf(NullPointerException.class);
 
         assertThatThrownBy(() -> MLAlgorithmEnum.createDescriptor(algoName, null, algorithmType, documentationLink))
-                .as("")
+                .as("The exception throw by trying to create a descriptor with null algorithm params")
                 .isInstanceOf(NullPointerException.class);
 
         assertThatThrownBy(() -> MLAlgorithmEnum.createDescriptor(algoName, parameters, null, documentationLink))
-                .as("")
+                .as("The exception throw by trying to create a descriptor with null algorithm type")
                 .isInstanceOf(NullPointerException.class);
 
-
         assertThatThrownBy(() -> MLAlgorithmEnum.createDescriptor(algoName, parameters, algorithmType, null))
-                .as("")
+                .as("The exception throw by trying to create a descriptor with null URL")
                 .isInstanceOf(NullPointerException.class);
     }
 
+    /**
+     * Tests the {@link MLAlgorithmEnum#createDescriptor(String, Set, MachineLearningAlgorithmType, String)} with
+     * an invalid URL.
+     */
     @Test
     public void testInvalidUrl() {
         final String algoName = "algoName";
@@ -91,42 +108,51 @@ public class MLAlgorithmEnumTest {
         final MachineLearningAlgorithmType algorithmType = MachineLearningAlgorithmType.BINARY_CLASSIFICATION;
 
         assertThatThrownBy(() -> MLAlgorithmEnum.createDescriptor(algoName, parameters, algorithmType, "random string"))
-                .as("")
+                .as("The exception throw by trying to create a descriptor with an invalid URL")
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
+    /**
+     * Tests the {@link MLAlgorithmEnum#getName}.
+     */
     @Test
     public void testGetName() {
         assertThat(DummyAlgorithmEnum.DUMMY.getName())
-                .as("")
+                .as("The dummy algorithm name")
                 .isEqualTo(DummyAlgorithmEnum.DUMMY.getAlgorithmDescriptor().getAlgorithmName());
     }
 
+    /**
+     * Tests the {@link MLAlgorithmEnum#getDescriptors(MLAlgorithmEnum[])}.
+     */
     @Test
     public void testGetDescriptors() {
-        Set<MLAlgorithmDescriptor> descriptors = MLAlgorithmEnum.getDescriptors(DummyAlgorithmEnum.values());
+        final Set<MLAlgorithmDescriptor> descriptors = MLAlgorithmEnum.getDescriptors(DummyAlgorithmEnum.values());
 
         assertThat(descriptors)
-                .as("")
+                .as("The number of descriptors")
                 .hasSize(DummyAlgorithmEnum.values().length);
 
         assertThat(descriptors)
-                .as("")
+                .as("The descriptors returned by the auxiliary method")
                 .isEqualTo(Stream.of(DummyAlgorithmEnum.values()).map(DummyAlgorithmEnum::getAlgorithmDescriptor).collect(Collectors.toSet()));
     }
 
+    /**
+     * Tests the {@link MLAlgorithmEnum#getByName(MLAlgorithmEnum[], String)}.
+     */
     @Test
     public void testGetByName() {
         assertThat(MLAlgorithmEnum.getByName(DummyAlgorithmEnum.values(), null))
-        .as("")
-        .isEmpty();
+                .as("The get by name for null argument")
+                .isEmpty();
 
         assertThat(MLAlgorithmEnum.getByName(DummyAlgorithmEnum.values(), "random name"))
-                .as("")
+                .as("The get by name for an unexisting name")
                 .isEmpty();
 
         assertThat(MLAlgorithmEnum.getByName(DummyAlgorithmEnum.values(), DummyAlgorithmEnum.DUMMY.getName()))
-                .as("")
+                .as("The get by name for an existing name")
                 .isPresent()
                 .contains(DummyAlgorithmEnum.DUMMY);
 

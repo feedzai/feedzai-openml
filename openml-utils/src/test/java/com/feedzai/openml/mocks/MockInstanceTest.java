@@ -31,9 +31,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-
+/**
+ * Class that tests the behaviour of an {@link MockInstance}.
+ *
+ * @since @@@feedzai.next.release@@@
+ * @author Pedro Rijo (pedro.rijo@feedzai.com)
+ */
 public class MockInstanceTest {
 
+    /**
+     * Tests the construction through {@link MockInstance#MockInstance(double[])}.
+     */
     @Test
     public void testDoubleArray() {
 
@@ -45,16 +53,19 @@ public class MockInstanceTest {
 
         values.forEach(idx -> {
             assertThat(instance.getValue(idx.intValue()))
-                    .as("")
+                    .as("The instance value")
                     .isEqualTo(idx);
 
             assertThatThrownBy(() -> instance.getStringValue(idx.intValue()))
-                    .as("")
+                    .as("The instance string value")
                     .isInstanceOf(ClassCastException.class);
         });
 
     }
 
+    /**
+     * Tests the construction through {@link MockInstance#MockInstance(List)}.
+     */
     @Test
     public void testList() {
 
@@ -63,30 +74,31 @@ public class MockInstanceTest {
 
         values.forEach(idx -> {
             assertThat(instance.getStringValue(Integer.parseInt((String) idx)))
-                    .as("")
+                    .as("The instance string value")
                     .isEqualTo(idx);
 
             assertThatThrownBy(() -> instance.getValue(Integer.parseInt((String) idx)))
-                    .as("")
+                    .as("The instance value")
                     .isInstanceOf(ClassCastException.class);
         });
 
     }
 
 
+    /**
+     * Tests the construction through {@link MockInstance#MockInstance(int, Random)}.
+     */
     @Test
     public void testSize() {
         final int numberFieldsSize = 10;
         final MockInstance instance = new MockInstance(numberFieldsSize, new Random());
 
-        IntStream.range(0, numberFieldsSize).forEach(idx -> {
-            assertThatCode(() -> instance.getValue(idx))
-                    .as("")
-                    .doesNotThrowAnyException();
-        });
+        IntStream.range(0, numberFieldsSize).forEach(idx -> assertThatCode(() -> instance.getValue(idx))
+                .as("The instance value for valid index")
+                .doesNotThrowAnyException());
 
         assertThatThrownBy(() -> instance.getValue(numberFieldsSize))
-                .as("")
+                .as("The instance value for an index bigger than asked")
                 .isInstanceOf(IndexOutOfBoundsException.class);
 
     }

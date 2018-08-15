@@ -52,6 +52,9 @@ public class ValidationUtilsTest {
                 .isEmpty();
     }
 
+    /**
+     * Tests that {@link ValidationUtils#baseLoadValidations(DatasetSchema, Map)} can return some errors.
+     */
     @Test
     public void testBaseValidationErrors() {
 
@@ -62,17 +65,17 @@ public class ValidationUtilsTest {
                 .build();
 
         assertThat(ValidationUtils.baseLoadValidations(null, ImmutableMap.of("param1", "val1")))
-                .as("")
+                .as("The list of errors found with a null schema")
                 .isNotEmpty()
                 .hasSize(1);
 
         assertThat(ValidationUtils.baseLoadValidations(schema, null))
-                .as("")
+                .as("The list of errors found with null parameters")
                 .isNotEmpty()
                 .hasSize(1);
 
         assertThat(ValidationUtils.baseLoadValidations(null, null))
-                .as("")
+                .as("The list of errors found with all arguments as null")
                 .isNotEmpty()
                 .hasSize(2);
     }

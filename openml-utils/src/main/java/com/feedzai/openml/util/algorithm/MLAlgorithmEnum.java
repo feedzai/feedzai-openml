@@ -60,7 +60,7 @@ public interface MLAlgorithmEnum {
                                                   final MachineLearningAlgorithmType algorithmType,
                                                   final String documentationLink) {
 
-        Preconditions.checkNotNull(documentationLink, "");
+        Preconditions.checkNotNull(documentationLink, "The documentation link should not be null");
 
         URL documentationUrl = null;
         try {

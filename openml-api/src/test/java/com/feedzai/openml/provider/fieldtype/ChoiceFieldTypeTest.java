@@ -45,6 +45,9 @@ public class ChoiceFieldTypeTest extends AbstractConfigFieldTypeTest<ChoiceField
         return new ChoiceFieldType(ImmutableSet.of("val1", "val2"), "val2");
     }
 
+    /**
+     * Tests the constructor verifications for invalid values.
+     */
     @Test
     public void validateConstructor() {
         assertThatThrownBy(() -> new ChoiceFieldType(null, "value2"))

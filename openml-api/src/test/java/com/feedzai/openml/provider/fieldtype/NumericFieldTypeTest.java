@@ -100,6 +100,9 @@ public class NumericFieldTypeTest extends AbstractConfigFieldTypeTest<NumericFie
                 .isEqualTo(NumericFieldType.ParameterConfigType.DOUBLE);
     }
 
+    /**
+     * Tests the constructor verifications for invalid values.
+     */
     @Test
     public void validateConstructor() {
 
@@ -108,12 +111,12 @@ public class NumericFieldTypeTest extends AbstractConfigFieldTypeTest<NumericFie
                 .isInstanceOf(NullPointerException.class);
 
         assertThatThrownBy(() -> NumericFieldType.range(1, -1, NumericFieldType.ParameterConfigType.DOUBLE, 1))
-                .as("The min value cannpt be bigger than the max value")
+                .as("The min value cannot be bigger than the max value")
                 .isInstanceOf(IllegalArgumentException.class);
 
         assertThatCode(() -> NumericFieldType.range(-1, 1, NumericFieldType.ParameterConfigType.DOUBLE, 0))
                 .as("A valid NumericFieldType constructor")
-                .MockDataset();
+                .doesNotThrowAnyException();
 
         assertThatCode(() -> NumericFieldType.range(-1, -1, NumericFieldType.ParameterConfigType.DOUBLE, -1))
                 .as("A  NumericFieldType with a max value equal to min")

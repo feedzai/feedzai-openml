@@ -17,6 +17,7 @@
 
 package com.feedzai.openml.util.load;
 
+import com.feedzai.openml.data.schema.AbstractValueSchema;
 import com.feedzai.openml.data.schema.CategoricalValueSchema;
 import com.feedzai.openml.data.schema.DatasetSchema;
 import com.feedzai.openml.data.schema.NumericValueSchema;
@@ -26,6 +27,7 @@ import com.google.common.collect.ImmutableSet;
 import org.junit.Test;
 
 import java.io.File;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
@@ -65,29 +67,36 @@ public class LoadSchemaUtilsTest {
                 .hasMessageContaining("should be a directory");
     }
 
+    /**
+     * Tests the behaviour of {@link LoadSchemaUtils#datasetSchemaFromJson(Path)} when the folder doesn't contain
+     * the model.json file.
+     */
     @Test
     public void jsonNotExistTest() {
         final String directoryPath = getClass().getResource(File.separator + "wrong_model_000").getPath();
 
         assertThatThrownBy(() -> LoadSchemaUtils.datasetSchemaFromJson(Paths.get(directoryPath)))
-                .as("")
+                .as("The exception thrown by loading the schema from a path without the model.json file")
                 .isInstanceOf(ModelLoadingException.class)
                 .hasMessageContaining("model.json ");
     }
 
+    /**
+     * Tests {@link LoadSchemaUtils#getValueSchemaTypeToString(AbstractValueSchema)}.
+     */
     @Test
     public void valueSchemaToString() {
 
         assertThat(LoadSchemaUtils.getValueSchemaTypeToString(new StringValueSchema(true)))
-                .as("")
+                .as("The string representation of a StringValueSchema")
                 .isEqualTo(LoadSchemaUtils.STRING);
 
         assertThat(LoadSchemaUtils.getValueSchemaTypeToString(new CategoricalValueSchema(true, ImmutableSet.of())))
-                .as("")
+                .as("The string representation of a CategoricalValueSchema")
                 .isEqualTo(LoadSchemaUtils.CATEGORICAL);
 
         assertThat(LoadSchemaUtils.getValueSchemaTypeToString(new NumericValueSchema(true)))
-                .as("")
+                .as("The string representation of a NumericValueSchema")
                 .isEqualTo(LoadSchemaUtils.NUMERIC);
     }
 }

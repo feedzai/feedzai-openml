@@ -70,6 +70,9 @@ public class ClassificationDatasetSchemaUtilTest {
                 .isInstanceOf(RuntimeException.class);
     }
 
+    /**
+     * Tests the behaviour of {@link ClassificationDatasetSchemaUtil#withCategoricalValueSchema(AbstractValueSchema, Function)}.
+     */
     @Test
     public void testWithCategoricalSchema() {
 
@@ -78,15 +81,15 @@ public class ClassificationDatasetSchemaUtilTest {
         final Function<CategoricalValueSchema, Integer> fun = (categoricalValueSchema -> returnValue);
 
         assertThat(ClassificationDatasetSchemaUtil.withCategoricalValueSchema(new NumericValueSchema(true), fun))
-                .as("")
+                .as("The output of calling withCategoricalValueSchema on a NumericValueSchema")
                 .isEmpty();
 
         assertThat(ClassificationDatasetSchemaUtil.withCategoricalValueSchema(new StringValueSchema(true), fun))
-                .as("")
+                .as("The output of calling withCategoricalValueSchema on a StringValueSchema")
                 .isEmpty();
 
         assertThat(ClassificationDatasetSchemaUtil.withCategoricalValueSchema(new CategoricalValueSchema(true, ImmutableSet.of()), fun))
-                .as("")
+                .as("The output of calling withCategoricalValueSchema on a CategoricalValueSchema")
                 .isNotEmpty()
                 .contains(returnValue);
     }

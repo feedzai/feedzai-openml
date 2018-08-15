@@ -22,8 +22,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
-import java.util.Collection;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -35,11 +33,19 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(Parameterized.class)
 public class ModelParameterTest {
 
+    /**
+     * Sets up the test parameter, representing whether the created {@link ModelParameter} should be mandatory.
+     *
+     * @return An array of {@link Object} representing the possible values for {@link #mandatory}.
+     */
     @Parameterized.Parameters
     public static Object[] data() {
         return new Object[] { true, false };
     }
 
+    /**
+     * If the {@link ModelParameter} created during the test should be mandatory or not.
+     */
     @Parameterized.Parameter
     public boolean mandatory;
 
