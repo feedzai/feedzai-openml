@@ -238,7 +238,7 @@ public class EncodingHelperTest {
      * Tests the existing encoders from {@link EncodingHelper#encoderForField(AbstractValueSchema)}.
      */
     @Test
-    public void testEncoders() {
+    public void testEncodersOnNulls() {
         final NumericValueSchema numericValueSchema = new NumericValueSchema(true);
         final EncodingHelper.SerializableEncoder numericEncoder = EncodingHelper.encoderForField(numericValueSchema);
         assertThat(numericEncoder.apply(null))

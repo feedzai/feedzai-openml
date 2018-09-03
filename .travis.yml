@@ -9,7 +9,6 @@ branches:
     - /^\d+\.\d+(\.\d+)?(-\S*)?$/
     #hotfix branches (not being too strict on purpose)
     - /^hf-.*$/
-    - exp/mutationTesting-pimp
 
 script:
   - mvn test -B
