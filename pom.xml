@@ -265,9 +265,6 @@
                         <param>hashCode</param>
                         <param>equals</param>
                     </excludedMethods>
-                    <excludedClasses>
-                        <param>com.feedzai.openml.util.algorithm.GenericAlgorithm</param>
-                    </excludedClasses>
                     <mutationThreshold>70</mutationThreshold>
                     <threads>2</threads>
                 </configuration>
