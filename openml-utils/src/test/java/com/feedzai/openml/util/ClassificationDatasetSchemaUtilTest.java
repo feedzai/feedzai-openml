@@ -17,15 +17,14 @@
 
 package com.feedzai.openml.util;
 
-import com.feedzai.openml.data.schema.CategoricalValueSchema;
-import com.feedzai.openml.data.schema.DatasetSchema;
-import com.feedzai.openml.data.schema.FieldSchema;
-import com.feedzai.openml.data.schema.NumericValueSchema;
+import com.feedzai.openml.data.schema.*;
 import com.feedzai.openml.util.data.ClassificationDatasetSchemaUtil;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 import org.junit.Test;
 
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -69,6 +68,30 @@ public class ClassificationDatasetSchemaUtilTest {
         assertThatThrownBy(() -> ClassificationDatasetSchemaUtil.getNumClassValues(datasetSchema))
                 .as("The error for not having a categorical target")
                 .isInstanceOf(RuntimeException.class);
+    }
+
+    /**
+     * Tests the behaviour of {@link ClassificationDatasetSchemaUtil#withCategoricalValueSchema(AbstractValueSchema, Function)}.
+     */
+    @Test
+    public void testWithCategoricalSchema() {
+
+        final Integer returnValue = 10;
+
+        final Function<CategoricalValueSchema, Integer> fun = (categoricalValueSchema -> returnValue);
+
+        assertThat(ClassificationDatasetSchemaUtil.withCategoricalValueSchema(new NumericValueSchema(true), fun))
+                .as("The output of calling withCategoricalValueSchema on a NumericValueSchema")
+                .isEmpty();
+
+        assertThat(ClassificationDatasetSchemaUtil.withCategoricalValueSchema(new StringValueSchema(true), fun))
+                .as("The output of calling withCategoricalValueSchema on a StringValueSchema")
+                .isEmpty();
+
+        assertThat(ClassificationDatasetSchemaUtil.withCategoricalValueSchema(new CategoricalValueSchema(true, ImmutableSet.of()), fun))
+                .as("The output of calling withCategoricalValueSchema on a CategoricalValueSchema")
+                .isNotEmpty()
+                .contains(returnValue);
     }
 
     /**

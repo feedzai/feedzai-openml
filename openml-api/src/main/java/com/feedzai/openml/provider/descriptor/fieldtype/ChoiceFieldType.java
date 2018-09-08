@@ -85,11 +85,9 @@ public class ChoiceFieldType implements ModelParameterType {
         if (this.allowedValues.contains(parameterValue)) {
             return Optional.empty();
         } else {
-            return Optional.of(
-                    new ParamValidationError(
-                            parameterName,
-                            parameterValue,
-                            "should be one of: " + this.allowedValues.stream().collect(Collectors.joining(", "))));
+            String reason = "should be one of: " + String.join(", ", this.allowedValues);
+
+            return Optional.of(new ParamValidationError(parameterName, parameterValue, reason));
         }
     }
 

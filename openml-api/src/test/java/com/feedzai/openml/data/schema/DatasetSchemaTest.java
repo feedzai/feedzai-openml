@@ -175,7 +175,8 @@ public class DatasetSchemaTest {
 
         assertThatThrownBy(() -> new DatasetSchema(targetField.getFieldIndex(), allFields))
                 .as("The error thrown by an incorrect construction of a schema")
-                .isInstanceOf(IllegalArgumentException.class);    }
+                .isInstanceOf(IllegalArgumentException.class);
+    }
 
     /**
      * Tests that the {@link FieldSchema} of the {@link DatasetSchema} don't have a missing intermediary index.

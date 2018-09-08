@@ -12,7 +12,7 @@ branches:
 
 script:
   - mvn test -B
-  - mvn org.pitest:pitest-maven:mutationCoverage
+  - mvn pitmp:run
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)

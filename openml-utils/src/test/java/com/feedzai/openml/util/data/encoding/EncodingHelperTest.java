@@ -17,6 +17,7 @@
 
 package com.feedzai.openml.util.data.encoding;
 
+import com.feedzai.openml.data.schema.AbstractValueSchema;
 import com.feedzai.openml.data.schema.CategoricalValueSchema;
 import com.feedzai.openml.data.schema.DatasetSchema;
 import com.feedzai.openml.data.schema.FieldSchema;
@@ -41,6 +42,16 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
  * @since 0.1.0
  */
 public class EncodingHelperTest {
+
+    /**
+     * Tests the behaviour of the {@link EncodingHelper} constructor with null arguments.
+     */
+    @Test
+    public void testNull() {
+        assertThatThrownBy(() -> new EncodingHelper(null))
+                .as("The error thrown by an incorrect construction of a CategoricalValueSchema")
+                .isInstanceOf(NullPointerException.class);
+    }
 
     /**
      * Tests the encoding of different types of schema fields.
@@ -220,6 +231,30 @@ public class EncodingHelperTest {
 
         assertThat(encodingHelper.encode("ERROR", fieldIndex))
                 .as("Encoding a string")
+                .isEqualTo(Double.NaN);
+    }
+
+    /**
+     * Tests the existing encoders from {@link EncodingHelper#encoderForField(AbstractValueSchema)}.
+     */
+    @Test
+    public void testEncodersOnNulls() {
+        final NumericValueSchema numericValueSchema = new NumericValueSchema(true);
+        final EncodingHelper.SerializableEncoder numericEncoder = EncodingHelper.encoderForField(numericValueSchema);
+        assertThat(numericEncoder.apply(null))
+                .as("The result of applying the numeric encoder to a null")
+                .isEqualTo(Double.NaN);
+
+        final StringValueSchema stringValueSchema = new StringValueSchema(true);
+        final EncodingHelper.SerializableEncoder stringEncoder = EncodingHelper.encoderForField(stringValueSchema);
+        assertThat(stringEncoder.apply(null))
+                .as("The result of applying the string encoder to a null")
+                .isEqualTo(null);
+
+        final CategoricalValueSchema categoricalSchema = new CategoricalValueSchema(true, ImmutableSet.of());
+        final EncodingHelper.SerializableEncoder categoricalEncoder = EncodingHelper.encoderForField(categoricalSchema);
+        assertThat(categoricalEncoder.apply(null))
+                .as("The result of applying the categorical encoder to a null")
                 .isEqualTo(Double.NaN);
     }
 }

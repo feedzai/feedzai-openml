@@ -24,6 +24,8 @@ import org.junit.Test;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatCode;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
  * Tests the behaviour of the {@link ChoiceFieldType} class.
@@ -41,6 +43,32 @@ public class ChoiceFieldTypeTest extends AbstractConfigFieldTypeTest<ChoiceField
     @Override
     ChoiceFieldType getAnotherInstance() {
         return new ChoiceFieldType(ImmutableSet.of("val1", "val2"), "val2");
+    }
+
+    /**
+     * Tests the constructor verifications for invalid values.
+     */
+    @Test
+    public void validateConstructor() {
+        assertThatThrownBy(() -> new ChoiceFieldType(null, "value2"))
+                .as("A ChoiceFieldType cannot have null 'allowedFields'")
+                .isInstanceOf(NullPointerException.class);
+
+        assertThatThrownBy(() -> new ChoiceFieldType(ImmutableSet.of("value1", "value2"), null))
+                .as("A ChoiceFieldType cannot have a null default value")
+                .isInstanceOf(NullPointerException.class);
+
+        assertThatThrownBy(() -> new ChoiceFieldType(ImmutableSet.of(), "value2"))
+                .as("A ChoiceFieldType cannot have an empty set of 'allowedFields'")
+                .isInstanceOf(IllegalArgumentException.class);
+
+        assertThatThrownBy(() -> new ChoiceFieldType(ImmutableSet.of("value1", "value2"), "value3"))
+                .as("A ChoiceFieldType cannot have null a default value outside of allowed values")
+                .isInstanceOf(IllegalArgumentException.class);
+
+        assertThatCode(() -> new ChoiceFieldType(ImmutableSet.of("value1", "value2"), "value2"))
+                .as("A valid ChoiceFieldType constructor")
+                .doesNotThrowAnyException();
     }
 
     /**

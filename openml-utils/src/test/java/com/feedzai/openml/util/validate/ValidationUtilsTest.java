@@ -53,6 +53,34 @@ public class ValidationUtilsTest {
     }
 
     /**
+     * Tests that {@link ValidationUtils#baseLoadValidations(DatasetSchema, Map)} can return some errors.
+     */
+    @Test
+    public void testBaseValidationErrors() {
+
+        final DatasetSchema schema = TestDatasetSchemaBuilder.builder()
+                .withCategoricalFields(3)
+                .withNumericalFields(3)
+                .withStringFields(3)
+                .build();
+
+        assertThat(ValidationUtils.baseLoadValidations(null, ImmutableMap.of("param1", "val1")))
+                .as("The list of errors found with a null schema")
+                .isNotEmpty()
+                .hasSize(1);
+
+        assertThat(ValidationUtils.baseLoadValidations(schema, null))
+                .as("The list of errors found with null parameters")
+                .isNotEmpty()
+                .hasSize(1);
+
+        assertThat(ValidationUtils.baseLoadValidations(null, null))
+                .as("The list of errors found with all arguments as null")
+                .isNotEmpty()
+                .hasSize(2);
+    }
+
+    /**
      * Tests that the {@link ValidationUtils#checkNoFieldsOfType(DatasetSchema, Class)} does not return errors when
      * searching for categorical fields in a schema without categoricals.
      */

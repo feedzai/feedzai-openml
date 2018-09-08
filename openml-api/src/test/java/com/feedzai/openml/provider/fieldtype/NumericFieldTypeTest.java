@@ -21,6 +21,8 @@ import com.feedzai.openml.provider.descriptor.fieldtype.NumericFieldType;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatCode;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
  * Tests the behaviour of the {@link NumericFieldType} class.
@@ -62,13 +64,17 @@ public class NumericFieldTypeTest extends AbstractConfigFieldTypeTest<NumericFie
                 defaultValue
         );
 
-        assertValidationResult(fieldType, "param0", null, true);
-        assertValidationResult(fieldType, "param1", "", true);
-        assertValidationResult(fieldType, "param2", "non-parsable", true);
-        assertValidationResult(fieldType, "param3", String.valueOf(minValue - 1), true);
-        assertValidationResult(fieldType, "param4", String.valueOf(maxValue + 1), true);
-        assertValidationResult(fieldType, "param5", String.valueOf(minValue + 1), false);
+        assertValidationResult(fieldType, "param", null, true);
+        assertValidationResult(fieldType, "param", "", true);
+        assertValidationResult(fieldType, "param", "non-parsable", true);
 
+        assertValidationResult(fieldType, "param", String.valueOf(minValue - 1), true);
+        assertValidationResult(fieldType, "param", String.valueOf(minValue), false);
+        assertValidationResult(fieldType, "param", String.valueOf(minValue + 1), false);
+
+        assertValidationResult(fieldType, "param", String.valueOf(maxValue - 1), false);
+        assertValidationResult(fieldType, "param", String.valueOf(maxValue), false);
+        assertValidationResult(fieldType, "param", String.valueOf(maxValue + 1), true);
     }
 
     /**
@@ -92,6 +98,49 @@ public class NumericFieldTypeTest extends AbstractConfigFieldTypeTest<NumericFie
 
         assertThat(type1.getParameterType())
                 .isEqualTo(NumericFieldType.ParameterConfigType.DOUBLE);
+    }
+
+    /**
+     * Tests the constructor verifications for invalid values.
+     */
+    @Test
+    public void validateConstructor() {
+
+        assertThatThrownBy(() ->  NumericFieldType.range(-1, 1, null, 0))
+                .as("A NumericFieldType cannot have a null parameter type")
+                .isInstanceOf(NullPointerException.class);
+
+        assertThatThrownBy(() -> NumericFieldType.range(1, -1, NumericFieldType.ParameterConfigType.DOUBLE, 1))
+                .as("The min value cannot be bigger than the max value")
+                .isInstanceOf(IllegalArgumentException.class);
+
+        assertThatCode(() -> NumericFieldType.range(-1, 1, NumericFieldType.ParameterConfigType.DOUBLE, 0))
+                .as("A valid NumericFieldType constructor")
+                .doesNotThrowAnyException();
+
+        assertThatCode(() -> NumericFieldType.range(-1, -1, NumericFieldType.ParameterConfigType.DOUBLE, -1))
+                .as("A  NumericFieldType with a max value equal to min")
+                .doesNotThrowAnyException();
+
+        assertThatCode(() -> NumericFieldType.range(-1, 1, NumericFieldType.ParameterConfigType.DOUBLE, -1))
+                .as("A  NumericFieldType with a default value equal to min")
+                .doesNotThrowAnyException();
+
+        assertThatCode(() -> NumericFieldType.range(-1, 1, NumericFieldType.ParameterConfigType.DOUBLE, 0))
+                .as("A  NumericFieldType with a default value between min and max")
+                .doesNotThrowAnyException();
+
+        assertThatCode(() -> NumericFieldType.range(-1, 1, NumericFieldType.ParameterConfigType.DOUBLE, 1))
+                .as("A  NumericFieldType with a default value equal to max")
+                .doesNotThrowAnyException();
+
+        assertThatThrownBy(() -> NumericFieldType.range(-1, 1, NumericFieldType.ParameterConfigType.DOUBLE, -2))
+                .as("A  NumericFieldType with a default value smaller than min")
+                .isInstanceOf(IllegalArgumentException.class);
+
+        assertThatThrownBy(() -> NumericFieldType.range(-1, 1, NumericFieldType.ParameterConfigType.DOUBLE, 2))
+                .as("A  NumericFieldType with a default value bigger than max")
+                .isInstanceOf(IllegalArgumentException.class);
 
     }
 

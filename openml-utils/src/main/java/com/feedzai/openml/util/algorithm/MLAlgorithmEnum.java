@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.feedzai.openml.provider.descriptor.MLAlgorithmDescriptor;
 import com.feedzai.openml.provider.descriptor.MachineLearningAlgorithmType;
 import com.feedzai.openml.provider.descriptor.ModelParameter;
+import com.google.common.base.Preconditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -58,11 +59,15 @@ public interface MLAlgorithmEnum {
                                                   final Set<ModelParameter> algorithmParameters,
                                                   final MachineLearningAlgorithmType algorithmType,
                                                   final String documentationLink) {
+
+        Preconditions.checkNotNull(documentationLink, "The documentation link should not be null");
+
         URL documentationUrl = null;
         try {
             documentationUrl = new URL(documentationLink);
         } catch (final MalformedURLException e) {
             logger.warn(String.format("The documentation URL for the algorithm descriptor '%s' is malformed", algorithmName), e);
+            throw new IllegalArgumentException(String.format("Supplied documentation link is not a valid URL: %s", e.getMessage()));
         }
 
         return new MLAlgorithmDescriptor(

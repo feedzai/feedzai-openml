@@ -107,7 +107,7 @@ public final class EncodingHelper implements Serializable {
             return value -> (Double) handleNullOrFailed(value, function, DEFAULT_CATEGORICAL_VALUE);
 
         } else {
-            final SerializableEncoder function = Object::toString;
+            final SerializableEncoder function = s -> s;
             return value -> (String) handleNullOrFailed(value, function, DEFAULT_STRING_VALUE);
         }
     }
