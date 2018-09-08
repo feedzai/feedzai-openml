@@ -265,7 +265,7 @@
                         <param>hashCode</param>
                         <param>equals</param>
                     </excludedMethods>
-                    <mutationThreshold>70</mutationThreshold>
+                    <mutationThreshold>78</mutationThreshold>
                     <threads>2</threads>
                 </configuration>
             </plugin>
