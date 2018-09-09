@@ -266,6 +266,7 @@
                         <param>equals</param>
                     </excludedMethods>
                     <mutationThreshold>78</mutationThreshold>
+		    <withHistory>true</withHistory>
                     <threads>2</threads>
                 </configuration>
             </plugin>
