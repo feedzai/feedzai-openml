@@ -23,9 +23,6 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -68,31 +65,22 @@ public class DatasetSchema implements Serializable {
     }
 
     /**
-     * Auxiliar method to check all the restrictions on the {@link FieldSchema} upon {@link DatasetSchema} creation.
+     * Auxiliary method to check all the restrictions on the {@link FieldSchema} upon {@link DatasetSchema} creation.
      *
      * @param fieldSchemas The List of field schemas.
      * @return The original list of field schemas if all the checks have passed. Otherwise
      * an {@link IllegalArgumentException} is thrown.
      */
-    private  List<FieldSchema> checkFieldSchemas(final List<FieldSchema> fieldSchemas) {
+    private List<FieldSchema> checkFieldSchemas(final List<FieldSchema> fieldSchemas) {
 
         Preconditions.checkNotNull(fieldSchemas, "field schemas should not be null");
 
         final List<Integer> indexes = fieldSchemas.stream().map(FieldSchema::getFieldIndex).collect(Collectors.toList());
 
-        // check if indexes unique
-        Preconditions.checkArgument(indexes.size() == new HashSet<>(indexes).size(),
-                                    "field schemas should have unique indexes");
-
-        // check if indexes are sorted
-        final ArrayList<Integer> sortedList = new ArrayList<>(indexes);
-        Collections.sort(sortedList);
-        Preconditions.checkArgument(sortedList.equals(indexes), "field schemas should be sorted by index");
-
-        // check if there are no missing indexes, i.e., all the indexes are continuous. Since we already check for
-        // sorting, if the first index is 0 and the last is indexes.size - 1, then we have that ensurance.
+        // check if indexes are a continuous list with no duplicated elements, i.e., all indexes are unique, are sorted
+        // and there are no intermediary indexes missing.
         Preconditions.checkArgument(indexes.equals(IntStream.range(0, indexes.size()).boxed().collect(Collectors.toList())),
-                                    "field schemas have missing intermediary indexes");
+                                    "field schemas be sorted by increasing index, with no duplicated nor missing elements");
 
         Preconditions.checkArgument(
                 fieldSchemas.size() == fieldSchemas.stream().map(FieldSchema::getFieldName).collect(Collectors.toSet()).size(),

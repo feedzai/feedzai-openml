@@ -103,10 +103,11 @@ abstract class AbstractConfigFieldTypeTest<T extends ModelParameterType> {
         final Optional<ParamValidationError> result = fieldType.validate(paramName, paramValue);
 
         assertEquals(
-                String.format("Param %s with value %s should %s",
+                String.format("Param %s with value %s should %s, error: %s",
                               paramName,
                               paramValue,
-                              expectsError ? "not be valid" : "be valid"),
+                              expectsError ? "not be valid" : "be valid",
+                              result.map(ParamValidationError::getMessage).orElse("")),
                 result.isPresent(),
                 expectsError);
     }

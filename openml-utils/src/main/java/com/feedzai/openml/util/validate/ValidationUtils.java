@@ -187,18 +187,6 @@ public final class ValidationUtils {
             errorBuilder.add(new ParamValidationError("The map of parameters cannot be null"));
         }
 
-        if (Objects.isNull(schema.getFieldSchemas())) {
-            errorBuilder.add(new ParamValidationError("field schemas cannot be null"));
-        }
-
-        if (schema.getTargetIndex() < 0) {
-            errorBuilder.add(new ParamValidationError("target index cannot be negative"));
-        }
-
-        if (schema.getFieldSchemas().size() <= schema.getTargetIndex()) {
-            errorBuilder.add(new ParamValidationError("target index should not be bigger than the size of the fields"));
-        }
-
         return errorBuilder.build();
     }
 

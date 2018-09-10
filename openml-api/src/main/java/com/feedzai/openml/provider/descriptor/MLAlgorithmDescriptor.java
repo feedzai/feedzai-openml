@@ -100,9 +100,10 @@ public class MLAlgorithmDescriptor {
     }
 
     /**
-     * Gets the URL pointing to the documentation about this algorithm.
+     * Gets the possible null URL pointing to the documentation about this algorithm.
      *
-     * @return The {@link URL} containing the documentation.
+     * @return The {@link URL} containing the documentation. Can be null if the received string representation was not
+     * a valid URL.
      */
     public URL getDocumentation() {
         return this.documentation;
