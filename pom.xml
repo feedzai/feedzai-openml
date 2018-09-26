@@ -250,7 +250,7 @@
             <plugin>
                 <groupId>eu.stamp-project</groupId>
                 <artifactId>pitmp-maven-plugin</artifactId>
-                <version>1.3.4</version>
+                <version>1.3.6</version>
                 <configuration>
                     <skippedModules>
                         <param>openml-example</param>
@@ -265,8 +265,9 @@
                         <param>hashCode</param>
                         <param>equals</param>
                     </excludedMethods>
-                    <mutationThreshold>78</mutationThreshold>
-		    <withHistory>true</withHistory>
+                    <mutationThreshold>75</mutationThreshold>
+                    <targetDependencies>true</targetDependencies>
+                    <withHistory>true</withHistory>
                     <threads>2</threads>
                 </configuration>
             </plugin>
