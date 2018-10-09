@@ -29,7 +29,6 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.junit.Test;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -170,6 +169,8 @@ public abstract class AbstractProviderModelBaseTest<M extends ClassificationMLMo
                 .map(arr -> Arrays.asList(ArrayUtils.toObject(arr)))
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 
+        executor.shutdown();
+
         groupedClassDistResults.forEach((key, count) -> assertThat(count)
                 .as(String.format("The number of times the classification %s should appear", key))
                 .isEqualTo(this.maxNumberOfThreads / 2));
@@ -191,6 +192,9 @@ public abstract class AbstractProviderModelBaseTest<M extends ClassificationMLMo
                 ImmutableList.of(firstModel, secondModel),
                 executor
         );
+
+        executor.shutdown();
+
         assertAllInstances(evaluationsList);
     }
 
@@ -217,6 +221,9 @@ public abstract class AbstractProviderModelBaseTest<M extends ClassificationMLMo
         ).collect(Collectors.toList());
 
         final List<List<Future<Integer>>> evaluationsList = classifyInstancesInParallel(modelList, executorClassify);
+
+        executorGet.shutdown();
+        executorClassify.shutdown();
 
         assertAllInstances(evaluationsList);
     }
