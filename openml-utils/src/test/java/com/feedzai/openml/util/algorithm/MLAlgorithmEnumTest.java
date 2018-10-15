@@ -33,8 +33,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 /**
  * Class to test the behaviour of {@link MLAlgorithmEnum}.
  *
- * @since @@@feedzai.next.release@@@
  * @author Pedro Rijo (pedro.rijo@feedzai.com)
+ * @since 0.2.3
  */
 public class MLAlgorithmEnumTest {
 
