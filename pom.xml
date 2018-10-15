@@ -30,6 +30,7 @@
         <module>openml-api</module>
         <module>openml-utils</module>
         <module>openml-example</module>
+        <module>openml-provider-archetype</module>
     </modules>
 
     <name>Feedzai OpenML API Main</name>
