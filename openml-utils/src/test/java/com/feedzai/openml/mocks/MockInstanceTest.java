@@ -34,8 +34,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 /**
  * Class that tests the behaviour of an {@link MockInstance}.
  *
- * @since @@@feedzai.next.release@@@
  * @author Pedro Rijo (pedro.rijo@feedzai.com)
+ * @since @since 0.2.3
  */
 public class MockInstanceTest {
 
