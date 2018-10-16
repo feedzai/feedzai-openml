@@ -90,7 +90,7 @@ public final class ClassificationValidationUtils {
      * @param schema      Schema of the model.
      * @param params      Collection of parameters and the corresponding values.
      * @throws ModelLoadingException If the path and/or schema are not valid.
-     * @since 0.2.3
+     * @since 0.3.0
      */
     public static void validateParamsModelToLoad(final MachineLearningModelLoader modelLoader,
                                                  final Path modelPath,
