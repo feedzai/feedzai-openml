@@ -60,35 +60,35 @@ public class ClassificationValidationUtilsTest {
     /**
      * A valid path of a file.
      *
-     * @since 0.2.3
+     * @since 0.3.0
      */
     private static Path VALID_PATH;
 
     /**
      * A valid {@link Map} of parameters to valid that a model can be loaded.
      *
-     * @since 0.2.3
+     * @since 0.3.0
      */
     private static Map<String, String> VALID_PARAM_MAP = ImmutableMap.of("k1", "v2");
 
     /**
      * A invalid {@link Map} of parameters to valid that a model cannot be loaded.
      *
-     * @since 0.2.3
+     * @since 0.3.0
      */
     private static Map<String, String> INVALID_PARAM_MAP = ImmutableMap.of();
 
     /**
      * Message of the error that will be thrown during the validation of a model to load.
      *
-     * @since 0.2.3
+     * @since 0.3.0
      */
     private static final String INVALID_MODEL_TO_LOAD_MSG = "map is empty";
 
     /**
      * Part of the error message when a validation method is called with a null parameter.
      *
-     * @since 0.2.3
+     * @since 0.3.0
      */
     private static final String NULL_ERROR_MSG = "cannot be null";
 
@@ -147,7 +147,7 @@ public class ClassificationValidationUtilsTest {
     /**
      * Tests that a model to load is successfully validated when the parameters are valid.
      *
-     * @since 0.2.3
+     * @since 0.3.0
      */
     @Test
     public void testValidParamsModelToLoad() {
@@ -164,7 +164,7 @@ public class ClassificationValidationUtilsTest {
     /**
      * Tests that a {@link ModelLoadingException} is thrown when the parameters of a model to load are not valid.
      *
-     * @since 0.2.3
+     * @since 0.3.0
      */
     @Test
     public void testInvalidParamsModelToLoad() {
@@ -183,7 +183,7 @@ public class ClassificationValidationUtilsTest {
      * Tests that a {@link ModelLoadingException} is thrown when the {@link DatasetSchema} of a classification model
      * used to score events is null.
      *
-     * @since 0.2.3
+     * @since 0.3.0
      */
     @Test
     public void testVoidSchemaOfClassificationModel() {
@@ -203,7 +203,7 @@ public class ClassificationValidationUtilsTest {
      * Tests that a {@link ModelLoadingException} is thrown when the {@link ClassificationMLModel} used to score events
      * is null.
      *
-     * @since 0.2.3
+     * @since 0.3.0
      */
     @Test
     public void testVoidClassificationMLModel() {
@@ -220,7 +220,7 @@ public class ClassificationValidationUtilsTest {
      * Tests that a {@link ModelLoadingException} is thrown when the {@link MachineLearningModelLoader} of a model to
      * load is null.
      *
-     * @since 0.2.3
+     * @since 0.3.0
      */
     @Test
     public void testVoidModelLoaderOfModelToLoad() {
@@ -238,7 +238,7 @@ public class ClassificationValidationUtilsTest {
     /**
      * Tests that a {@link ModelLoadingException} is thrown when the {@link Path} of a model to load is null.
      *
-     * @since 0.2.3
+     * @since 0.3.0
      */
     @Test
     public void testVoidPathOfModelToLoad() {
@@ -256,7 +256,7 @@ public class ClassificationValidationUtilsTest {
     /**
      * Tests that a {@link ModelLoadingException} is thrown when the {@link DatasetSchema} of a model to load is null.
      *
-     * @since 0.2.3
+     * @since 0.3.0
      */
     @Test
     public void testVoidSchemaOfModelToLoad() {
@@ -274,7 +274,7 @@ public class ClassificationValidationUtilsTest {
     /**
      * Tests that a {@link ModelLoadingException} is thrown when the map of parameters of a model to load is null.
      *
-     * @since 0.2.3
+     * @since 0.3.0
      */
     @Test
     public void testVoidParamOfModelToLoad() {
@@ -331,7 +331,7 @@ public class ClassificationValidationUtilsTest {
      * Creates a model loader used to validate the parameters of a model to load. The validation will fail if the map
      * of parameters is empty.
      *
-     * @since 0.2.3
+     * @since 0.3.0
      */
     private MachineLearningModelLoader getMachineLearningModelLoader() {
 
