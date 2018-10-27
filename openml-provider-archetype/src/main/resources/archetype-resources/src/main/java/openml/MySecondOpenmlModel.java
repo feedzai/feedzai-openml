@@ -3,13 +3,27 @@ package ${groupId}.openml;
 import com.feedzai.openml.data.Instance;
 import com.feedzai.openml.data.schema.DatasetSchema;
 import com.feedzai.openml.provider.descriptor.MLAlgorithmDescriptor;
+import com.feedzai.openml.provider.descriptor.MachineLearningAlgorithmType;
 import com.feedzai.openml.util.data.ClassificationDatasetSchemaUtil;
+import com.google.common.collect.ImmutableSet;
 
+import java.net.URL;
 import java.nio.file.Path;
 
+/**
+ * A Machine Learning model implementation the it's the same as {@link MyFirstOpenmlModel}.
+ * This implementation could obviously be different, but for the sake of simplicity
+ * no changes have been made. It's only purpose it's to have a provider with
+ * more than one algorithm.
+ */
 public class MySecondOpenmlModel implements MyOpenmlModel {
 
-    public static final MLAlgorithmDescriptor DESCRIPTOR = null;
+    public static final MLAlgorithmDescriptor DESCRIPTOR = new MLAlgorithmDescriptor(
+            "MySecondOpenmlModel",
+            ImmutableSet.of(),
+            MachineLearningAlgorithmType.BINARY_CLASSIFICATION,
+            MyFirstOpenmlModel.genURL("https://github.com/feedzai/feedzai-openml")
+    );
 
     private final DatasetSchema schema;
 

@@ -13,6 +13,9 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Implementation of the entity responsible for loading a model from a given directory.
+ */
 public class MyOpenmlModelLoader implements MachineLearningModelLoader<MyOpenmlModel> {
 
     private MLAlgorithmDescriptor mlAlgorithmDescriptor;
