@@ -14,12 +14,12 @@
         <dependency>
             <groupId>com.feedzai</groupId>
             <artifactId>openml-api</artifactId>
-            <version>0.2.2</version>
+            <version>0.3.0</version>
         </dependency>
         <dependency>
             <groupId>com.feedzai</groupId>
             <artifactId>openml-utils</artifactId>
-            <version>0.2.2</version>
+            <version>0.3.0</version>
         </dependency>
         <dependency>
             <groupId>com.google.auto.service</groupId>
