@@ -51,7 +51,7 @@ Make sure your provider is identified according to the specification of [Java's 
 
 ### Maven Archetype
 
-As a way to ease the creation of new OpenML Providers, a maven archetype was created. To get started with it, just run:
+As a way to ease the creation of new OpenML Providers, a Maven archetype was created. To get started with it, just run:
 
 ```bash
 mvn archetype:generate -DarchetypeGroupId=com.feedzai -DarchetypeArtifactId=openml-provider-archetype -DarchetypeVersion=<version>
