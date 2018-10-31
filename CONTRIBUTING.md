@@ -23,7 +23,7 @@ When merging bug fixes, maintainers will **cherry pick the changes to the approp
 
 ## Releasing
 **When releasing a new Major.Minor** (read about [Semantic Versioning](https://semver.org/)) maintainers need perform a few steps to ensure the repository documents are updated:
-   * Update the [README](https://github.com/feedzai/feedzai-openml/blob/master/README.md) on the *master* branch so that the XML snippets indicate the new version
+   * Update the [README](https://github.com/feedzai/feedzai-openml/blob/master/README.md) on the *master* branch so that the XML snippets indicate the new version. Also, update the maven archetype command version.
    * Create a new hotfix branch named *hf-MM.mm.X* (where *MM* is the Major and *mm* the Minor)
    * In that new branch, perform a pull request to change the badge URLs to point to the new branch
    * Make the branch protected in the settings, so that force pushes are not allowed and PRs are mandatory

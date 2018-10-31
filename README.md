@@ -20,7 +20,7 @@ The [OpenML API module](https://github.com/feedzai/feedzai-openml/tree/master/op
   <groupId>com.feedzai</groupId>
   <artifactId>openml-api</artifactId>
   <!-- See project tags for latest version -->
-  <version>0.3.0</version>
+  <version>0.4.0</version>
 </dependency>
 ```
 
@@ -34,7 +34,7 @@ The [openml-utils](https://github.com/feedzai/feedzai-openml/tree/master/openml-
   <groupId>com.feedzai</groupId>
   <artifactId>openml-utils</artifactId>
   <!-- See project tags for latest version -->
-  <version>0.3.0</version>
+  <version>0.4.0</version>
 </dependency>
 ```
 
@@ -54,7 +54,7 @@ Make sure your provider is identified according to the specification of [Java's 
 As a way to ease the creation of new OpenML Providers, a Maven archetype was created. To get started with it, just run:
 
 ```bash
-mvn archetype:generate -DarchetypeGroupId=com.feedzai -DarchetypeArtifactId=openml-provider-archetype -DarchetypeVersion=<version>
+mvn archetype:generate -DarchetypeGroupId=com.feedzai -DarchetypeArtifactId=openml-provider-archetype -DarchetypeVersion=0.4.0
 ```
 
 After providing all the necessary information (your new provider groupId, artifactId, and version), a template provider with some guidance will be available on your workspace.
