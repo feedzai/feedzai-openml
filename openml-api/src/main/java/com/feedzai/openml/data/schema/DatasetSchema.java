@@ -80,7 +80,7 @@ public class DatasetSchema implements Serializable {
         // check if indexes are a continuous list with no duplicated elements, i.e., all indexes are unique, are sorted
         // and there are no intermediary indexes missing.
         Preconditions.checkArgument(indexes.equals(IntStream.range(0, indexes.size()).boxed().collect(Collectors.toList())),
-                                    "field schemas be sorted by increasing index, with no duplicated nor missing elements");
+                                    "schema fields must be sorted by increasing index, with no duplicated nor missing index elements");
 
         Preconditions.checkArgument(
                 fieldSchemas.size() == fieldSchemas.stream().map(FieldSchema::getFieldName).collect(Collectors.toSet()).size(),
