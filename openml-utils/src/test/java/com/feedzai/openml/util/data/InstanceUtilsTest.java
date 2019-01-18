@@ -25,6 +25,7 @@ import com.google.common.collect.ImmutableSet;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Optional;
 import java.util.function.IntToDoubleFunction;
 import java.util.stream.IntStream;
 
@@ -64,9 +65,32 @@ public class InstanceUtilsTest {
         final double[] fieldValues = fieldValues(index -> index * 10.0);
         final MockInstance instance = new MockInstance(fieldValues);
 
+        final Optional<Integer> targetIndex = this.schema.getTargetIndex();
+        assertThat(targetIndex)
+                .as("The dataset target variable index")
+                .isPresent();
+        //noinspection OptionalGetWithoutIsPresent already asserted at this point
         assertThat(InstanceUtils.getClassValue(instance, this.schema))
                 .as("The class value for the instance")
-                .isEqualTo(this.schema.getTargetIndex() * 10.0);
+                .hasValue(targetIndex.get() * 10.0);
+    }
+
+    /**
+     * Tests that fetching the class value using a schema with no target variable, the value returned by
+     * {@link InstanceUtils#getClassValue(Instance, DatasetSchema)} is {@link Optional#empty()}.
+     */
+    @Test
+    public final void testGetClassValueNoTarget() {
+        // Make the field values be their index * 10 for easier assertion
+        final double[] fieldValues = fieldValues(index -> index * 10.0);
+        final MockInstance instance = new MockInstance(fieldValues);
+        final DatasetSchema noTargetSchema = new DatasetSchema(this.schema.getFieldSchemas());
+
+        //noinspection OptionalGetWithoutIsPresent already asserted at this point
+        assertThat(InstanceUtils.getClassValue(instance, noTargetSchema))
+                .as("The class value for the instance, where the dataset has no schema")
+                .isNotPresent();
+
     }
 
     /**
@@ -82,7 +106,7 @@ public class InstanceUtilsTest {
                 .as("Check when the class is present")
                 .isFalse();
 
-        fieldValues[this.schema.getTargetIndex()] = Double.NaN;
+        fieldValues[this.schema.getTargetIndex().get()] = Double.NaN;
         final MockInstance instanceMissing = new MockInstance(fieldValues);
 
         assertThat(InstanceUtils.isMissingClass(instanceMissing, this.schema))
@@ -96,7 +120,7 @@ public class InstanceUtilsTest {
      */
     @Test
     public void testIsMissing() {
-        final int nonTargetIndex = (this.schema.getTargetIndex() + 1) % this.schema.getFieldSchemas().size();
+        final int nonTargetIndex = (this.schema.getTargetIndex().get() + 1) % this.schema.getFieldSchemas().size();
 
         final double[] fieldValues = fieldValues(index -> index);
         final MockInstance instanceNotMissing = new MockInstance(fieldValues);

@@ -25,6 +25,8 @@ import com.feedzai.openml.data.schema.DatasetSchema;
 import com.feedzai.openml.util.jackson.deserializer.DatasetSchemaDeserializer;
 
 import java.io.IOException;
+import java.util.Optional;
+import java.util.OptionalInt;
 
 /**
  * Custom {@link JsonSerializer} for known {@link DatasetSchema} instances.
@@ -33,6 +35,11 @@ import java.io.IOException;
  * @since 0.1.0
  */
 public class DatasetSchemaSerializer extends StdSerializer<DatasetSchema> {
+
+    /**
+     * Serial id for this class.
+     */
+    private static final long serialVersionUID = 6146242224085830807L;
 
     /**
      * Constructor of this object.
@@ -56,7 +63,10 @@ public class DatasetSchemaSerializer extends StdSerializer<DatasetSchema> {
                           final SerializerProvider serializerProvider) throws IOException {
 
         jsonGenerator.writeStartObject();
-        jsonGenerator.writeNumberField(DatasetSchemaDeserializer.TARGET_INDEX, datasetSchema.getTargetIndex());
+        final Optional<Integer> targetIndex = datasetSchema.getTargetIndex();
+        if (targetIndex.isPresent()) {
+            jsonGenerator.writeNumberField(DatasetSchemaDeserializer.TARGET_INDEX, targetIndex.get());
+        }
         jsonGenerator.writeObjectField(DatasetSchemaDeserializer.FIELD_SCHEMAS, datasetSchema.getFieldSchemas());
         jsonGenerator.writeEndObject();
     }

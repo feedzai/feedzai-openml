@@ -20,6 +20,7 @@ package com.feedzai.openml.util.data;
 import com.feedzai.openml.data.schema.AbstractValueSchema;
 import com.feedzai.openml.data.schema.CategoricalValueSchema;
 import com.feedzai.openml.data.schema.DatasetSchema;
+import com.feedzai.openml.data.schema.FieldSchema;
 import com.feedzai.openml.model.ClassificationMLModel;
 
 import java.util.Optional;
@@ -43,16 +44,13 @@ public final class ClassificationDatasetSchemaUtil {
      * problem.
      *
      * @param datasetSchema The {@link DatasetSchema}.
-     * @return The number of classes on the target variable.
+     * @return The number of classes on the target variable, if a target variable is defined, or {@link Optional#empty()} otheriwse.
      */
-    public static int getNumClassValues(final DatasetSchema datasetSchema) {
-
-        final AbstractValueSchema valueSchema = datasetSchema
-                .getFieldSchemas()
-                .get(datasetSchema.getTargetIndex())
-                .getValueSchema();
-
-        return getNumClassValues(valueSchema);
+    public static Optional<Integer> getNumClassValues(final DatasetSchema datasetSchema) {
+        return datasetSchema.getTargetIndex()
+                .map(datasetSchema.getFieldSchemas()::get)
+                .map(FieldSchema::getValueSchema)
+                .map(ClassificationDatasetSchemaUtil::getNumClassValues);
     }
 
     /**

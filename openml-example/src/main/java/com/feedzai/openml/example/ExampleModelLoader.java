@@ -52,11 +52,19 @@ public class ExampleModelLoader implements MachineLearningModelLoader<ExampleMod
         this.indexToPredict = indexToPredict;
     }
 
+    /**
+     * {@inheritDoc}.
+     * @param schema The schema for this implementation requires a predefined target variable.
+     */
     @Override
     public ExampleModel loadModel(final Path modelPath, final DatasetSchema schema) {
+        if (!schema.getTargetIndex().isPresent()) {
+            throw new IllegalArgumentException("This model requires a schema with a predefined target variable.");
+        }
+
         final int numberClasses = ((CategoricalValueSchema) schema
                 .getFieldSchemas()
-                .get(schema.getTargetIndex())
+                .get(schema.getTargetIndex().get())
                 .getValueSchema())
                 .getNominalValues()
                 .size();
