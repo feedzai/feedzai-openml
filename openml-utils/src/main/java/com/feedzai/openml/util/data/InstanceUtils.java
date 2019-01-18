@@ -22,8 +22,6 @@ import com.feedzai.openml.data.schema.DatasetSchema;
 import com.feedzai.openml.data.schema.StringValueSchema;
 
 import java.util.Optional;
-import java.util.OptionalDouble;
-import java.util.OptionalInt;
 
 /**
  * Utility class to help computing instance information for instances that do not possess

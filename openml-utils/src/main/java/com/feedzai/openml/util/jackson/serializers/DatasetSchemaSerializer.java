@@ -26,7 +26,6 @@ import com.feedzai.openml.util.jackson.deserializer.DatasetSchemaDeserializer;
 
 import java.io.IOException;
 import java.util.Optional;
-import java.util.OptionalInt;
 
 /**
  * Custom {@link JsonSerializer} for known {@link DatasetSchema} instances.

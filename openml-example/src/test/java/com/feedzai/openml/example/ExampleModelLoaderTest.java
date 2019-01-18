@@ -20,6 +20,7 @@ package com.feedzai.openml.example;
 import com.feedzai.openml.data.schema.DatasetSchema;
 import com.feedzai.openml.provider.exception.ModelLoadingException;
 import com.feedzai.openml.util.data.schema.TestDatasetSchemaBuilder;
+import com.google.common.collect.ImmutableList;
 import org.junit.Test;
 
 import java.nio.file.Path;
@@ -48,6 +49,22 @@ public class ExampleModelLoaderTest {
         assertThat(loader.loadModel(modelPath, testSchema))
                 .as("The result loading a model with the Example Loader")
                 .isNotNull();
+    }
+
+    /**
+     * Tests that [[TODO]]
+     *
+     * @since @@@feedzai.next.release@@@
+     */
+    @Test
+    public final void testLoadModelWithNoSchema() {
+        final ExampleModelLoader loader = new ExampleModelLoader(0);
+        final Path modelPath = get("dummy");
+        final DatasetSchema testSchema = new DatasetSchema(ImmutableList.of());
+        assertThatThrownBy(() -> loader.loadModel(modelPath, testSchema))
+                .as("The of loading a model with a dataset which has no target variable.")
+                .isInstanceOf(IllegalArgumentException.class);
+
     }
 
     /**
