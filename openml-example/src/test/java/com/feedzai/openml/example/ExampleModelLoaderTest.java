@@ -52,9 +52,7 @@ public class ExampleModelLoaderTest {
     }
 
     /**
-     * Tests that [[TODO]]
-     *
-     * @since @@@feedzai.next.release@@@
+     * Tests that {@link ExampleModelLoader} cannot load model with a schema that has no target variable.
      */
     @Test
     public final void testLoadModelWithNoSchema() {

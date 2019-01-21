@@ -44,7 +44,7 @@ public final class ClassificationDatasetSchemaUtil {
      * problem.
      *
      * @param datasetSchema The {@link DatasetSchema}.
-     * @return The number of classes on the target variable, if a target variable is defined, or {@link Optional#empty()} otheriwse.
+     * @return The number of classes on the target variable, if a target variable is defined, or {@link Optional#empty()} otherwise.
      */
     public static Optional<Integer> getNumClassValues(final DatasetSchema datasetSchema) {
         return datasetSchema.getTargetIndex()

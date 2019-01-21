@@ -20,7 +20,6 @@ package com.feedzai.openml.util.jackson;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.feedzai.openml.data.schema.DatasetSchema;
 import com.feedzai.openml.util.data.schema.TestDatasetSchemaBuilder;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -31,6 +30,8 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
 
+import static org.junit.Assert.assertEquals;
+
 /**
  * Tests for the serialization of {@link DatasetSchema}.
  *
@@ -39,6 +40,9 @@ import java.util.Collection;
  */
 @RunWith(Parameterized.class)
 public class DatasetSchemaSerializationTest {
+
+    @Parameter
+    public DatasetSchema schema;
 
     @Parameters
     public static Collection<Object[]> data() {
@@ -52,9 +56,6 @@ public class DatasetSchemaSerializationTest {
                 {schema}, {new DatasetSchema(schema.getFieldSchemas())}
         });
     }
-
-    @Parameter
-    public DatasetSchema schema;
 
     /**
      * Checks that is possible to serialize an instance of {@link DatasetSchema} in a JSON.
@@ -70,7 +71,7 @@ public class DatasetSchemaSerializationTest {
 
         final DatasetSchema deserializableJSONContextModel = mapper.readValue(datasetSchemaJSON, DatasetSchema.class);
 
-        Assert.assertEquals(this.schema, deserializableJSONContextModel);
+        assertEquals(this.schema, deserializableJSONContextModel);
     }
 
 }
