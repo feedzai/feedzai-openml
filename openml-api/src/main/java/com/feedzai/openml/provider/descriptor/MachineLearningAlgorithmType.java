@@ -26,22 +26,33 @@ package com.feedzai.openml.provider.descriptor;
 public enum MachineLearningAlgorithmType {
 
     /**
+     * Represents an algorithm suitable for Binary Classification problems.
+     * @deprecated use {@link #SUPERVISED_BINARY_CLASSIFICATION} instead.
+     */
+    @Deprecated
+    BINARY_CLASSIFICATION,
+
+    /**
      * Represents a supervised machine learning algorithm suitable for Binary Classification problems.
+     * E.g. - Random Forest (may also be multi-classification)
      */
     SUPERVISED_BINARY_CLASSIFICATION,
 
     /**
      * Represents an Anomaly Detection algorithm.
+     * E.g. Isolation Forest
      */
     ANOMALY_DETECTION,
 
     /**
      * Represents an algorithm suitable for Multi Classification problems.
+     * E.g. - Support Vector Machines
      */
     MULTI_CLASSIFICATION,
 
     /**
      * Represents an algorithm suitable for Regression problems.
+     * E.g. - Logistic regression
      */
     REGRESSION
 }
