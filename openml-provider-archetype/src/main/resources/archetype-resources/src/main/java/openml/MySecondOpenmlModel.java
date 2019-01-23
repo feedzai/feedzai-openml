@@ -21,7 +21,7 @@ public class MySecondOpenmlModel implements MyOpenmlModel {
     public static final MLAlgorithmDescriptor DESCRIPTOR = new MLAlgorithmDescriptor(
             "MySecondOpenmlModel",
             ImmutableSet.of(),
-            MachineLearningAlgorithmType.BINARY_CLASSIFICATION,
+            MachineLearningAlgorithmType.SUPERVISED_BINARY_CLASSIFICATION,
             MyFirstOpenmlModel.genURL("https://github.com/feedzai/feedzai-openml")
     );
 

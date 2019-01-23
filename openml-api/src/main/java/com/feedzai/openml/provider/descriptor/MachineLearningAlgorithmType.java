@@ -26,9 +26,14 @@ package com.feedzai.openml.provider.descriptor;
 public enum MachineLearningAlgorithmType {
 
     /**
-     * Represents an algorithm suitable for Binary Classification problems.
+     * Represents a supervised machine learning algorithm suitable for Binary Classification problems.
      */
-    BINARY_CLASSIFICATION,
+    SUPERVISED_BINARY_CLASSIFICATION,
+
+    /**
+     * Represents an Anomaly Detection algorithm.
+     */
+    ANOMALY_DETECTION,
 
     /**
      * Represents an algorithm suitable for Multi Classification problems.

@@ -46,7 +46,7 @@ public class MLAlgorithmEnumTest {
     public void testCreateDescriptor() {
         final String algoName = "algoName";
         final ImmutableSet<ModelParameter> parameters = ImmutableSet.of();
-        final MachineLearningAlgorithmType algorithmType = MachineLearningAlgorithmType.BINARY_CLASSIFICATION;
+        final MachineLearningAlgorithmType algorithmType = MachineLearningAlgorithmType.SUPERVISED_BINARY_CLASSIFICATION;
         final String documentationLink = "https://feedzai.com/";
 
         final MLAlgorithmDescriptor descriptor = MLAlgorithmEnum.createDescriptor(algoName, parameters, algorithmType, documentationLink);
@@ -77,7 +77,7 @@ public class MLAlgorithmEnumTest {
     public void testInvalidCreateDescriptor() {
         final String algoName = "algoName";
         final ImmutableSet<ModelParameter> parameters = ImmutableSet.of();
-        final MachineLearningAlgorithmType algorithmType = MachineLearningAlgorithmType.BINARY_CLASSIFICATION;
+        final MachineLearningAlgorithmType algorithmType = MachineLearningAlgorithmType.SUPERVISED_BINARY_CLASSIFICATION;
         final String documentationLink = "https://feedzai.com/";
 
         assertThatThrownBy(() -> MLAlgorithmEnum.createDescriptor(null, parameters, algorithmType, documentationLink))
@@ -105,7 +105,7 @@ public class MLAlgorithmEnumTest {
     public void testInvalidUrl() {
         final String algoName = "algoName";
         final ImmutableSet<ModelParameter> parameters = ImmutableSet.of();
-        final MachineLearningAlgorithmType algorithmType = MachineLearningAlgorithmType.BINARY_CLASSIFICATION;
+        final MachineLearningAlgorithmType algorithmType = MachineLearningAlgorithmType.SUPERVISED_BINARY_CLASSIFICATION;
 
         assertThatThrownBy(() -> MLAlgorithmEnum.createDescriptor(algoName, parameters, algorithmType, "random string"))
                 .as("The exception throw by trying to create a descriptor with an invalid URL")

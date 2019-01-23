@@ -80,7 +80,7 @@ public class ExampleMLProvider implements MachineLearningProvider<MachineLearnin
                 new MLAlgorithmDescriptor(
                         PREDICT_FIRST,
                         parameterList,
-                        MachineLearningAlgorithmType.BINARY_CLASSIFICATION,
+                        MachineLearningAlgorithmType.SUPERVISED_BINARY_CLASSIFICATION,
                         documentation
                 ),
                 new MLAlgorithmDescriptor(

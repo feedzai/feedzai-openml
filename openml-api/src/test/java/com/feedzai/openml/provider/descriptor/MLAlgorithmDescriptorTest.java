@@ -82,7 +82,7 @@ public class MLAlgorithmDescriptorTest {
         final MLAlgorithmDescriptor desc2 = new MLAlgorithmDescriptor(
                 "another",
                 ImmutableSet.of(modelParameter),
-                MachineLearningAlgorithmType.BINARY_CLASSIFICATION,
+                MachineLearningAlgorithmType.SUPERVISED_BINARY_CLASSIFICATION,
                 this.url
         );
 

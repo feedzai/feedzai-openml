@@ -58,7 +58,7 @@ public class MyFirstOpenmlModel implements MyOpenmlModel {
                                 NumericFieldType.max(15, NumericFieldType.ParameterConfigType.INT, 3)
                         )
                 ),
-                MachineLearningAlgorithmType.BINARY_CLASSIFICATION,
+                MachineLearningAlgorithmType.SUPERVISED_BINARY_CLASSIFICATION,
                 genURL("https://github.com/feedzai/feedzai-openml")
             );
 
