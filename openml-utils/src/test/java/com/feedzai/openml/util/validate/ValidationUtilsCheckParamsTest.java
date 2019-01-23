@@ -134,7 +134,7 @@ public class ValidationUtilsCheckParamsTest {
             return new MLAlgorithmDescriptor(
                     "thename",
                     modelParameters,
-                    MachineLearningAlgorithmType.BINARY_CLASSIFICATION,
+                    MachineLearningAlgorithmType.SUPERVISED_BINARY_CLASSIFICATION,
                     new URL("http://www.feedzai.com")
             );
         } catch (final MalformedURLException e) {
