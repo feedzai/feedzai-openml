@@ -20,10 +20,17 @@ package com.feedzai.openml.util.jackson;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.feedzai.openml.data.schema.DatasetSchema;
 import com.feedzai.openml.util.data.schema.TestDatasetSchemaBuilder;
-import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameter;
+import org.junit.runners.Parameterized.Parameters;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collection;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Tests for the serialization of {@link DatasetSchema}.
@@ -31,7 +38,24 @@ import java.io.IOException;
  * @author Paulo Pereira (paulo.pereira@feedzai.com)
  * @since 0.1.0
  */
+@RunWith(Parameterized.class)
 public class DatasetSchemaSerializationTest {
+
+    @Parameter
+    public DatasetSchema schema;
+
+    @Parameters
+    public static Collection<Object[]> data() {
+        final DatasetSchema schema = TestDatasetSchemaBuilder.builder()
+                .withCategoricalFields(2)
+                .withNumericalFields(3)
+                .withStringFields(1)
+                .build();
+
+        return Arrays.asList(new Object[][] {
+                {schema}, {new DatasetSchema(schema.getFieldSchemas())}
+        });
+    }
 
     /**
      * Checks that is possible to serialize an instance of {@link DatasetSchema} in a JSON.
@@ -43,24 +67,11 @@ public class DatasetSchemaSerializationTest {
         final ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new SerializersInModule());
 
-        final DatasetSchema datasetSchemaModel = createDatasetSchema();
-        final String datasetSchemaJSON = mapper.writeValueAsString(datasetSchemaModel);
+        final String datasetSchemaJSON = mapper.writeValueAsString(this.schema);
 
         final DatasetSchema deserializableJSONContextModel = mapper.readValue(datasetSchemaJSON, DatasetSchema.class);
 
-        Assert.assertEquals(datasetSchemaModel, deserializableJSONContextModel);
+        assertEquals(this.schema, deserializableJSONContextModel);
     }
 
-    /**
-     * Creates a dummy {@link DatasetSchema} to use in tests.
-     *
-     * @return a instance of {@link DatasetSchema}.
-     */
-    private DatasetSchema createDatasetSchema() {
-        return TestDatasetSchemaBuilder.builder()
-                .withCategoricalFields(2)
-                .withNumericalFields(3)
-                .withStringFields(1)
-                .build();
-    }
 }

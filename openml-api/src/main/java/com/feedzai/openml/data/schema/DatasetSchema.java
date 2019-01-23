@@ -24,6 +24,7 @@ import com.google.common.collect.ImmutableList;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -54,14 +55,26 @@ public class DatasetSchema implements Serializable {
     /**
      * Creates a new instance.
      *
-     * @param targetIndex  The index of the target field.
+     * @param targetIndex  The index of the target field. Use a negative value (or {@link #DatasetSchema(List)}) to represent no
+     *                     target variable.
      * @param fieldSchemas The list of {@link FieldSchema} that represent each feature.
      */
     public DatasetSchema(final int targetIndex,
                          final List<FieldSchema> fieldSchemas) {
 
         this.fieldSchemas = checkFieldSchemas(fieldSchemas);
-        this.targetIndex = Preconditions.checkElementIndex(targetIndex, fieldSchemas.size(), "target index should be a valid index");
+        this.targetIndex = targetIndex >= 0
+                ? Preconditions.checkElementIndex(targetIndex, fieldSchemas.size(), "target index should be a valid index")
+                : targetIndex;
+    }
+
+    /**
+     * Creates a new instance.
+     *
+     * @param fieldSchemas The list of {@link FieldSchema} that represent each feature.
+     */
+    public DatasetSchema(final List<FieldSchema> fieldSchemas) {
+        this(-1, fieldSchemas);
     }
 
     /**
@@ -92,10 +105,10 @@ public class DatasetSchema implements Serializable {
     /**
      * Gets the index of the target field (the field to predict).
      *
-     * @return The target field index.
+     * @return The target field index wrapped in an {@link Optional} object, or {@link Optional#empty()} if no target variable is specified.
      */
-    public int getTargetIndex() {
-        return this.targetIndex;
+    public Optional<Integer> getTargetIndex() {
+        return this.targetIndex < 0 ? Optional.empty() : Optional.of(this.targetIndex);
     }
 
     /**

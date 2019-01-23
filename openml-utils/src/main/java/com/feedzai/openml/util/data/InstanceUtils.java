@@ -21,6 +21,8 @@ import com.feedzai.openml.data.Instance;
 import com.feedzai.openml.data.schema.DatasetSchema;
 import com.feedzai.openml.data.schema.StringValueSchema;
 
+import java.util.Optional;
+
 /**
  * Utility class to help computing instance information for instances that do not possess
  * {@link StringValueSchema String} fields.
@@ -42,10 +44,11 @@ public final class InstanceUtils {
      *
      * @param instance The {@link Instance} to get the class value for.
      * @param schema   The {@link DatasetSchema} of the Instance.
-     * @return The target field value as double.
+     * @return The target field value as double wrapped in an {@link Optional}, or {@link Optional#empty()} if no target variable is defined.
      */
-    public static double getClassValue(final Instance instance, final DatasetSchema schema) {
-        return instance.getValue(schema.getTargetIndex());
+    public static Optional<Double> getClassValue(final Instance instance, final DatasetSchema schema) {
+        return schema.getTargetIndex()
+                .map(instance::getValue);
     }
 
     /**
@@ -57,7 +60,9 @@ public final class InstanceUtils {
      * target variable has a value present.
      */
     public static boolean isMissingClass(final Instance instance, final DatasetSchema schema) {
-        return Double.isNaN(getClassValue(instance, schema));
+        return getClassValue(instance, schema)
+                .map(value -> Double.isNaN(value))
+                .orElse(true);
     }
 
     /**

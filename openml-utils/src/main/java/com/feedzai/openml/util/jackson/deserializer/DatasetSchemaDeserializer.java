@@ -29,6 +29,7 @@ import com.feedzai.openml.data.schema.FieldSchema;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Custom {@link JsonDeserializer} for known {@link DatasetSchema} instances.
@@ -69,7 +70,8 @@ public class DatasetSchemaDeserializer extends StdDeserializer<DatasetSchema> {
                                      final DeserializationContext deserializationContext) throws IOException {
         final JsonNode treeNode = jsonParser.getCodec().readTree(jsonParser);
 
-        final int targetIndex = (int) treeNode.get(TARGET_INDEX).numberValue();
+        final Optional<Integer> targetIndex = Optional.ofNullable(treeNode.get(TARGET_INDEX))
+                .map(JsonNode::intValue);
 
         final TreeNode fieldNode = treeNode.get(FIELD_SCHEMAS);
         final List<FieldSchema> schemaList = jsonParser.getCodec().readValue(
@@ -77,6 +79,8 @@ public class DatasetSchemaDeserializer extends StdDeserializer<DatasetSchema> {
                 new TypeReference<List<FieldSchema>>() { }
         );
 
-        return new DatasetSchema(targetIndex, schemaList);
+        return targetIndex
+                .map(index -> new DatasetSchema(index, schemaList))
+                .orElse(new DatasetSchema(schemaList));
     }
 }

@@ -22,6 +22,7 @@ import com.google.common.collect.ImmutableSet;
 import org.junit.Test;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -48,6 +49,17 @@ public class DatasetSchemaTest {
         assertThatThrownBy(() -> new DatasetSchema(2, ImmutableList.of(FIELD_SCHEMA)))
                 .as("The error thrown by an incorrect construction of a schema")
                 .isInstanceOf(IndexOutOfBoundsException.class);
+    }
+
+    /**
+     * Tests that by creating a {@link DatasetSchema} with no information on the target variable will make {@link DatasetSchema#getTargetIndex()}
+     * return {@link Optional#empty()}.
+     */
+    @Test
+    public final void testNoTargetIndex() {
+        assertThat(new DatasetSchema(ImmutableList.of(FIELD_SCHEMA)).getTargetIndex())
+                .as("A dataset with no target variable")
+                .isNotPresent();
     }
 
     /**
@@ -82,7 +94,7 @@ public class DatasetSchemaTest {
         final DatasetSchema datasetSchema = new DatasetSchema(3, allFields);
 
         assertThat(datasetSchema.getTargetIndex())
-                .isEqualTo(3);
+                .hasValue(3);
 
         assertThat(datasetSchema.getFieldSchemas())
                 .isEqualTo(allFields);

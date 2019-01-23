@@ -48,7 +48,7 @@ public class ClassificationDatasetSchemaUtilTest {
                 .forEach(numClasses ->
                         assertThat(ClassificationDatasetSchemaUtil.getNumClassValues(createClassificationDatasetSchema(numClasses)))
                                 .as("The number of classes")
-                                .isEqualTo(numClasses));
+                                .hasValue(numClasses));
     }
 
     /**
