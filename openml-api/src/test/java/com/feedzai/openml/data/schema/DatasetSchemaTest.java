@@ -67,6 +67,8 @@ public class DatasetSchemaTest {
         assertions.assertThat(schema.getTargetFieldSchema())
                 .as("A dataset with no target variable should not return any field.")
                 .isNotPresent();
+
+        assertions.assertAll();
     }
 
     /**
@@ -146,15 +148,19 @@ public class DatasetSchemaTest {
         final DatasetSchema datasetWithTarget = new DatasetSchema(3, allFields);
         final DatasetSchema datasetNoTarget = new DatasetSchema(allFields);
 
-        assertThat(datasetWithTarget.getPredictiveFields())
+        final SoftAssertions assertions = new SoftAssertions();
+
+        assertions.assertThat(datasetWithTarget.getPredictiveFields())
                 .as("A dataset with target field will consider all fields but the target as predictive fields")
                 .isEqualTo(predictiveFields)
                 .doesNotContain(targetField);
 
-        assertThat(datasetNoTarget.getPredictiveFields())
+        assertions.assertThat(datasetNoTarget.getPredictiveFields())
                 .as("A dataset with no target field will consider all fields, including the target, as predictive fields")
                 .containsAll(predictiveFields)
                 .contains(targetField);
+
+        assertions.assertAll();
     }
 
 

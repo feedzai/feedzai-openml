@@ -139,9 +139,11 @@ public class DatasetSchema implements Serializable {
         if (!getTargetIndex().isPresent()) {
             return this.fieldSchemas;
         }
+        final int targetIndex = getTargetIndex().get();
+
         return this.fieldSchemas
                 .stream()
-                .filter(field -> field.getFieldIndex() != this.targetIndex)
+                .filter(field -> field.getFieldIndex() != targetIndex)
                 .collect(Collectors.toList());
     }
 
