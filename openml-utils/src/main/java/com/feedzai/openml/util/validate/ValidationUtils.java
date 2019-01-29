@@ -20,6 +20,7 @@ package com.feedzai.openml.util.validate;
 import com.feedzai.openml.data.schema.AbstractValueSchema;
 import com.feedzai.openml.data.schema.CategoricalValueSchema;
 import com.feedzai.openml.data.schema.DatasetSchema;
+import com.feedzai.openml.data.schema.FieldSchema;
 import com.feedzai.openml.model.MachineLearningModel;
 import com.feedzai.openml.provider.descriptor.MLAlgorithmDescriptor;
 import com.feedzai.openml.provider.descriptor.ModelParameter;
@@ -126,21 +127,27 @@ public final class ValidationUtils {
      * @return An {@link Optional} {@link ParamValidationError}.
      */
     public static Optional<ParamValidationError> validateCategoricalSchema(final DatasetSchema schema) {
+        final Optional<FieldSchema> targetFieldOrNone = schema.getTargetFieldSchema();
 
-        final AbstractValueSchema targetSchemaType = schema.getTargetFieldSchema().getValueSchema();
+        if (!targetFieldOrNone.isPresent()) {
+            return Optional.of(new ParamValidationError("The dataset provided has no target variable."));
+        }
+
+        final FieldSchema targetField = targetFieldOrNone.get();
+        final AbstractValueSchema targetSchemaType = targetField.getValueSchema();
 
         final Supplier<SortedSet<String>> categoricalNominalValues = () -> ((CategoricalValueSchema) targetSchemaType).getNominalValues();
 
         if (!(targetSchemaType instanceof CategoricalValueSchema)) {
             return Optional.of(new ParamValidationError(String.format(
                     "Target variable %s must be a categorical field",
-                    schema.getTargetFieldSchema().getFieldName()
+                    targetField.getFieldName()
             )));
 
         } else if (categoricalNominalValues.get().size() < 2) {
             final String message = String.format(
                     "Target variable %s must be a categorical field with at least 2 values, but only has %s.",
-                    schema.getTargetFieldSchema().getFieldName(),
+                    targetField.getFieldName(),
                     categoricalNominalValues.get().size()
             );
             return Optional.of(new ParamValidationError(message));
