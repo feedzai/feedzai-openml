@@ -64,7 +64,7 @@ public class DatasetSchemaTest {
                 .as("A dataset with no target variable")
                 .isNotPresent();
 
-        assertions.assertThat(schema.getTargetVariableField())
+        assertions.assertThat(schema.getTargetFieldSchema())
                 .as("A dataset with no target variable should not return any field.")
                 .isNotPresent();
     }
@@ -107,9 +107,6 @@ public class DatasetSchemaTest {
                 .isEqualTo(allFields);
 
         assertThat(datasetSchema.getTargetFieldSchema())
-                .isEqualTo(targetField);
-
-        assertThat(datasetSchema.getTargetVariableField())
                 .contains(targetField);
 
         assertThat(datasetSchema.getPredictiveFields())
