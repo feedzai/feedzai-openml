@@ -43,6 +43,26 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ValidationUtilsValidateCategoricalTest {
 
     /**
+     * Tests that when {@link ValidationUtils#validateCategoricalSchema(DatasetSchema) validating categorical target values} for a schema with no target field,
+     * a {@link ParamValidationError} is returned.
+     */
+    @Test
+    public final void testSchemaWithNoTarget() {
+        final DatasetSchema schemaWithTarget = TestDatasetSchemaBuilder.builder()
+                .withNumericalFields(3)
+                .withCategoricalFields(3, ImmutableSet.of("cat1", "cat2"))
+                .withCategoricalTarget(true)
+                .build();
+        final DatasetSchema schema = new DatasetSchema(schemaWithTarget.getFieldSchemas());
+
+        final Optional<ParamValidationError> validationResult = ValidationUtils.validateCategoricalSchema(schema);
+
+        assertThat(validationResult)
+                .as("Validating a schema with no target fields fails.")
+                .isPresent();
+    }
+
+    /**
      * Validates that the utility method accepts a schema with a {@link CategoricalValueSchema} target variable.
      */
     @Test
@@ -125,40 +145,6 @@ public class ValidationUtilsValidateCategoricalTest {
                         .withCategoricalTarget(useCategorical)
                         .build()
         );
-    }
-
-
-    /**
-     * Builds a list of {@link FieldSchema} consisting of N {@link NumericValueSchema numeric fields} followed by
-     * M {@link CategoricalValueSchema categorical fields}.
-     *
-     * @param numericFields     The number of numerical fields to add.
-     * @param categoricalFields The number of categorical fields to add.
-     * @param categories        The {@link CategoricalValueSchema#getNominalValues() categories} to configure in
-     *                          {@link CategoricalValueSchema categorical fields}.
-     * @return The List of {@link FieldSchema}s.
-     */
-    private List<FieldSchema> buildFieldSchemas(final int numericFields,
-                                                final int categoricalFields,
-                                                final Set<String> categories) {
-        final ImmutableList.Builder<FieldSchema> fieldBuilder = ImmutableList.builder();
-        final int totalFields = numericFields + categoricalFields;
-        for (int fieldIndex = 0; fieldIndex < totalFields; fieldIndex++) {
-            final AbstractValueSchema fieldValueSchema;
-            if (fieldIndex < numericFields) {
-                fieldValueSchema = new NumericValueSchema(true);
-            } else {
-                fieldValueSchema = new CategoricalValueSchema(true, categories);
-            }
-
-            final FieldSchema fieldSchema = new FieldSchema(
-                    "field" + fieldIndex,
-                    fieldIndex,
-                    fieldValueSchema
-            );
-            fieldBuilder.add(fieldSchema);
-        }
-        return fieldBuilder.build();
     }
 
 

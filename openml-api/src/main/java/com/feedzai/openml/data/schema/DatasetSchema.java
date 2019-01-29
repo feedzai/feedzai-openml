@@ -131,7 +131,7 @@ public class DatasetSchema implements Serializable {
     }
 
     /**
-     * Gets the list of predictive fields (i.e., {@link #getTargetFieldSchema()} () non target field}).
+     * Gets the list of predictive fields (i.e., {@link #getTargetFieldSchema() non target field}).
      *
      * @return the list of predictive fields.
      */
