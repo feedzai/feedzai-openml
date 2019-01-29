@@ -99,7 +99,7 @@ public class DatasetSchema implements Serializable {
                 fieldSchemas.size() == fieldSchemas.stream().map(FieldSchema::getFieldName).collect(Collectors.toSet()).size(),
         "field schemas should have unique names");
 
-        return fieldSchemas;
+        return ImmutableList.copyOf(fieldSchemas);
     }
 
     /**
@@ -121,12 +121,13 @@ public class DatasetSchema implements Serializable {
     }
 
     /**
-     * Gets the {@link FieldSchema} for the target field.
+     * Gets the {@link FieldSchema} identified as target variable, if one exists. The result of this method is consistent with {@link #getTargetIndex()}.
      *
-     * @return The target {@link FieldSchema field schema}.
+     * @return The {@link FieldSchema} marked as target variable, if one exists.
      */
-    public FieldSchema getTargetFieldSchema() {
-        return this.fieldSchemas.get(this.targetIndex);
+    public Optional<FieldSchema> getTargetFieldSchema() {
+        return getTargetIndex()
+                .map(this.fieldSchemas::get);
     }
 
     /**
@@ -135,9 +136,15 @@ public class DatasetSchema implements Serializable {
      * @return the list of predictive fields.
      */
     public List<FieldSchema> getPredictiveFields() {
+        final Optional<Integer> targetIndex = getTargetIndex();
+
+        if (!targetIndex.isPresent()) {
+            return this.fieldSchemas;
+        }
+
         return this.fieldSchemas
                 .stream()
-                .filter(field -> field.getFieldIndex() != this.targetIndex)
+                .filter(field -> field.getFieldIndex() != targetIndex.get())
                 .collect(Collectors.toList());
     }
 
