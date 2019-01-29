@@ -19,6 +19,7 @@ package com.feedzai.openml.data.schema;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
+import org.assertj.core.api.SoftAssertions;
 import org.junit.Test;
 
 import java.util.List;
@@ -57,9 +58,17 @@ public class DatasetSchemaTest {
      */
     @Test
     public final void testNoTargetIndex() {
-        assertThat(new DatasetSchema(ImmutableList.of(FIELD_SCHEMA)).getTargetIndex())
+        final SoftAssertions assertions = new SoftAssertions();
+        final DatasetSchema schema = new DatasetSchema(ImmutableList.of(FIELD_SCHEMA));
+        assertions.assertThat(schema.getTargetIndex())
                 .as("A dataset with no target variable")
                 .isNotPresent();
+
+        assertions.assertThat(schema.getTargetFieldSchema())
+                .as("A dataset with no target variable should not return any field.")
+                .isNotPresent();
+
+        assertions.assertAll();
     }
 
     /**
@@ -100,10 +109,7 @@ public class DatasetSchemaTest {
                 .isEqualTo(allFields);
 
         assertThat(datasetSchema.getTargetFieldSchema())
-                .isEqualTo(targetField);
-
-        assertThat(datasetSchema.getPredictiveFields())
-                .isEqualTo(predictiveFields);
+                .contains(targetField);
 
         final DatasetSchema anotherSchema = new DatasetSchema(2, predictiveFields);
         assertThat(datasetSchema)
@@ -114,6 +120,47 @@ public class DatasetSchemaTest {
         assertThat(datasetSchema.hashCode())
                 .isEqualTo(datasetSchema.hashCode())
                 .isNotEqualTo(anotherSchema.hashCode());
+    }
+
+    /**
+     * Tests that predictive fields:
+     * <ul>
+     *     <li>Do not include the target field when the schema contains a target field.</li>
+     *     <li>Include all fields when the schema has no field marked as target variable.</li>
+     * </ul>
+     */
+    @Test
+    public final void testPredictiveFieldsDoNotContainTargetField() {
+        final FieldSchema targetField =
+                new FieldSchema("field3", 3, new CategoricalValueSchema(false, ImmutableSet.of("true", "false")));
+
+        final List<FieldSchema> predictiveFields = ImmutableList.of(
+                new FieldSchema("field0", 0, new NumericValueSchema(false)),
+                new FieldSchema("field1", 1, new StringValueSchema(true)),
+                new FieldSchema("field2", 2, new NumericValueSchema(true))
+        );
+
+        final List<FieldSchema> allFields = ImmutableList.<FieldSchema>builder()
+                .addAll(predictiveFields)
+                .add(targetField)
+                .build();
+
+        final DatasetSchema datasetWithTarget = new DatasetSchema(3, allFields);
+        final DatasetSchema datasetNoTarget = new DatasetSchema(allFields);
+
+        final SoftAssertions assertions = new SoftAssertions();
+
+        assertions.assertThat(datasetWithTarget.getPredictiveFields())
+                .as("A dataset with target field will consider all fields but the target as predictive fields")
+                .isEqualTo(predictiveFields)
+                .doesNotContain(targetField);
+
+        assertions.assertThat(datasetNoTarget.getPredictiveFields())
+                .as("A dataset with no target field will consider all fields, including the target, as predictive fields")
+                .containsAll(predictiveFields)
+                .contains(targetField);
+
+        assertions.assertAll();
     }
 
 
