@@ -136,14 +136,15 @@ public class DatasetSchema implements Serializable {
      * @return the list of predictive fields.
      */
     public List<FieldSchema> getPredictiveFields() {
-        if (!getTargetIndex().isPresent()) {
+        final Optional<Integer> targetIndex = getTargetIndex();
+
+        if (!targetIndex.isPresent()) {
             return this.fieldSchemas;
         }
-        final int targetIndex = getTargetIndex().get();
 
         return this.fieldSchemas
                 .stream()
-                .filter(field -> field.getFieldIndex() != targetIndex)
+                .filter(field -> field.getFieldIndex() != targetIndex.get())
                 .collect(Collectors.toList());
     }
 
