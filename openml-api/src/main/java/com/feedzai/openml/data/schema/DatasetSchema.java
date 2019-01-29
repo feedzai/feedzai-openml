@@ -99,7 +99,7 @@ public class DatasetSchema implements Serializable {
                 fieldSchemas.size() == fieldSchemas.stream().map(FieldSchema::getFieldName).collect(Collectors.toSet()).size(),
         "field schemas should have unique names");
 
-        return fieldSchemas;
+        return ImmutableList.copyOf(fieldSchemas);
     }
 
     /**
@@ -124,17 +124,33 @@ public class DatasetSchema implements Serializable {
      * Gets the {@link FieldSchema} for the target field.
      *
      * @return The target {@link FieldSchema field schema}.
+     * @throws IndexOutOfBoundsException if the target variable is not set for this schema.
+     * @deprecated use {@link #getTargetVariableField()} instead.
      */
+    @Deprecated
     public FieldSchema getTargetFieldSchema() {
         return this.fieldSchemas.get(this.targetIndex);
     }
 
     /**
-     * Gets the list of predictive fields (i.e., {@link #getTargetFieldSchema() non target field}).
+     * Gets the {@link FieldSchema} identified as target variable, if one exists. The result of this method is consistent with {@link #getTargetIndex()}.
+     *
+     * @return The {@link FieldSchema} marked as target variable, if one exists.
+     */
+    public Optional<FieldSchema> getTargetVariableField() {
+        return getTargetIndex()
+                .map(this.fieldSchemas::get);
+    }
+
+    /**
+     * Gets the list of predictive fields (i.e., {@link #getTargetVariableField()} () non target field}).
      *
      * @return the list of predictive fields.
      */
     public List<FieldSchema> getPredictiveFields() {
+        if (!getTargetIndex().isPresent()) {
+            return this.fieldSchemas;
+        }
         return this.fieldSchemas
                 .stream()
                 .filter(field -> field.getFieldIndex() != this.targetIndex)

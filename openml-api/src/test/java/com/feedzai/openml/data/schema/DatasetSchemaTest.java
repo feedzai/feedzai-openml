@@ -19,6 +19,7 @@ package com.feedzai.openml.data.schema;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
+import org.assertj.core.api.SoftAssertions;
 import org.junit.Test;
 
 import java.util.List;
@@ -57,8 +58,14 @@ public class DatasetSchemaTest {
      */
     @Test
     public final void testNoTargetIndex() {
-        assertThat(new DatasetSchema(ImmutableList.of(FIELD_SCHEMA)).getTargetIndex())
+        final SoftAssertions assertions = new SoftAssertions();
+        final DatasetSchema schema = new DatasetSchema(ImmutableList.of(FIELD_SCHEMA));
+        assertions.assertThat(schema.getTargetIndex())
                 .as("A dataset with no target variable")
+                .isNotPresent();
+
+        assertions.assertThat(schema.getTargetVariableField())
+                .as("A dataset with no target variable should not return any field.")
                 .isNotPresent();
     }
 
@@ -101,6 +108,9 @@ public class DatasetSchemaTest {
 
         assertThat(datasetSchema.getTargetFieldSchema())
                 .isEqualTo(targetField);
+
+        assertThat(datasetSchema.getTargetVariableField())
+                .contains(targetField);
 
         assertThat(datasetSchema.getPredictiveFields())
                 .isEqualTo(predictiveFields);
