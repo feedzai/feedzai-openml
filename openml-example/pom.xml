@@ -30,7 +30,8 @@
 
     <name>Feedzai OpenML Example</name>
     <description>Contains an example of a provider of Machine Learning Models implementing Feedzai's OpenML API.
-        These examples are not true models (in the essence that they do not learn and simply return dummy predictions).</description>
+        These examples are not true models (in the essence that they do not learn and simply return dummy predictions).
+    </description>
 
     <dependencies>
         <dependency>
@@ -44,11 +45,34 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>com.feedzai</groupId>
             <artifactId>openml-utils</artifactId>
             <type>test-jar</type>
             <scope>test</scope>
             <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
