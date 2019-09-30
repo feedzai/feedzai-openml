@@ -1,4 +1,13 @@
 language: java
+dist: trusty
+
+jdk:
+  - oraclejdk8
+
+addons:
+  apt:
+    packages:
+      - oracle-java8-installer
 
 # Travis is configured to run on pushed branches and pull requests so if we don't filter branches it runs twice when
 # we push the PR branch in our repo
