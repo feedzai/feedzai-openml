@@ -42,7 +42,12 @@ public interface ClassificationMLModel extends MachineLearningModel {
      * @param instance The {@link Instance} to be classified.
      * @return The index of the class nominal value according to the {@link DatasetSchema}
      * provided during training of the model.
+     *
+     * @deprecated The idea is to classify the biggest value of the class probabilities distribution obtained from #getClassDistribution(),
+     *  We no longer need this because we can just obtain the biggest value from the class probabilities distribution itself.
+     *
      */
+    @Deprecated
     int classify(Instance instance);
 
 }

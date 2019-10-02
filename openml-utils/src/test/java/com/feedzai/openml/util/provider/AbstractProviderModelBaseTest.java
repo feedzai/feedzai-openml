@@ -78,6 +78,28 @@ public abstract class AbstractProviderModelBaseTest<M extends ClassificationMLMo
      *                       TESTS                       *
      * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
+
+    /**
+     * Verifies that the {@link ClassificationMLModel#classify(Instance)} " returns the index of the greatest value in
+     * the class probability distribution produced by the calling
+     * {@link ClassificationMLModel#getClassDistribution(Instance)} on the model
+     *
+     * @see ClassificationMLModel
+     */
+    protected void canGetClassDistributionMaxValueIndex(final M model, final Instance instance){
+
+        final double[] scores = model.getClassDistribution(instance);
+
+        final int classificationIndex = model.classify(instance);
+
+        final double maxScore = Arrays.stream(scores).max().getAsDouble();
+
+        assertThat(Arrays.asList(ArrayUtils.toObject(scores)).indexOf(maxScore))
+                .as("The index of maximum value")
+                .isEqualTo(classificationIndex);
+    }
+
+
     /**
      * Checks that is possible to get a {@link MachineLearningProvider} given a valid provider and algorithm.
      */
