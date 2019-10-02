@@ -18,6 +18,7 @@ package com.feedzai.openml.util.provider;
 
 import com.feedzai.openml.data.Instance;
 import com.feedzai.openml.data.schema.DatasetSchema;
+import com.feedzai.openml.mocks.MockInstance;
 import com.feedzai.openml.model.ClassificationMLModel;
 import com.feedzai.openml.provider.MachineLearningProvider;
 import com.feedzai.openml.provider.exception.ModelLoadingException;
@@ -25,14 +26,12 @@ import com.feedzai.openml.provider.exception.ModelTrainingException;
 import com.feedzai.openml.provider.model.MachineLearningModelLoader;
 import com.feedzai.openml.util.algorithm.MLAlgorithmEnum;
 import com.google.common.collect.ImmutableList;
+import com.google.common.primitives.Doubles;
 import org.apache.commons.lang3.ArrayUtils;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.nio.file.Paths;
+import java.util.*;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
@@ -77,6 +76,29 @@ public abstract class AbstractProviderModelBaseTest<M extends ClassificationMLMo
     /* * * * * * * * * * * * * * * * * * * * * * * * * * *
      *                       TESTS                       *
      * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+
+    /**
+     * Checks the method ClassificationBinaryDataRobotModel#classify() if it ensures
+     * that DataRobot classifies correctly the index of maximum value of the scores' list.
+     *
+     * @throws ModelLoadingException If anything goes wrong during loading.
+     * @throws ModelTrainingException If anything goes wrong during training.
+     *
+     */
+    @Test
+    public void classifyIndexOfMaxScoresValue() throws ModelLoadingException, ModelTrainingException {
+        final M model = getFirstModel();
+        final Instance instance = getDummyInstance();
+        final int classificationIndex = model.classify(instance);
+        final double[] scores = model.getClassDistribution(instance);
+        final double maxScore = Arrays.stream(scores).max().getAsDouble();
+
+        assertThat(Doubles.asList(scores).indexOf(maxScore))
+                .as("The index of maximum value")
+                .isEqualTo(classificationIndex);
+    }
+
 
     /**
      * Checks that is possible to get a {@link MachineLearningProvider} given a valid provider and algorithm.
