@@ -18,7 +18,6 @@ package com.feedzai.openml.util.provider;
 
 import com.feedzai.openml.data.Instance;
 import com.feedzai.openml.data.schema.DatasetSchema;
-import com.feedzai.openml.mocks.MockInstance;
 import com.feedzai.openml.model.ClassificationMLModel;
 import com.feedzai.openml.provider.MachineLearningProvider;
 import com.feedzai.openml.provider.exception.ModelLoadingException;
@@ -30,8 +29,11 @@ import com.google.common.primitives.Doubles;
 import org.apache.commons.lang3.ArrayUtils;
 import org.junit.Test;
 
-import java.nio.file.Paths;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
