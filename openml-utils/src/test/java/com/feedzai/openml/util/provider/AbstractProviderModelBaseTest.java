@@ -79,8 +79,8 @@ public abstract class AbstractProviderModelBaseTest<M extends ClassificationMLMo
 
 
     /**
-     * Checks the method ClassificationBinaryDataRobotModel#classify() if it ensures
-     * that DataRobot classifies correctly the index of maximum value of the scores' list.
+     * Checks the method #classify() if it ensures correctly the index of the list's maximum value
+     * obtained from the method #getClassDistrubution().
      *
      * @throws ModelLoadingException If anything goes wrong during loading.
      * @throws ModelTrainingException If anything goes wrong during training.
