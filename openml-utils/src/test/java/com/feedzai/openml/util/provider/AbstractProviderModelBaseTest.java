@@ -81,15 +81,15 @@ public abstract class AbstractProviderModelBaseTest<M extends ClassificationMLMo
 
 
     /**
-     * Checks the method #classify() if it ensures correctly the index of the list's maximum value
-     * obtained from the method #getClassDistrubution().
+     * Checks the method #classify() if it ensures that the providers classify
+     * correctly the index of the maximum value of the scores list.
      *
-     * @throws ModelLoadingException If anything goes wrong during loading.
+     * @throws ModelLoadingException  If anything goes wrong during loading.
      * @throws ModelTrainingException If anything goes wrong during training.
-     *
      */
     @Test
     public void classifyIndexOfMaxScoresValue() throws ModelLoadingException, ModelTrainingException {
+
         final M model = getFirstModel();
         final Instance instance = getDummyInstance();
         final int classificationIndex = model.classify(instance);
