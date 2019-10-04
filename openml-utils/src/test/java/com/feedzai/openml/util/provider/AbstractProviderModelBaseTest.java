@@ -81,7 +81,7 @@ public abstract class AbstractProviderModelBaseTest<M extends ClassificationMLMo
 
 
     /**
-     * Checks the method #classify() to ensures that the providers classify
+     * Checks the method #classify() to ensure that the providers classify
      * correctly the index of the maximum value of the scores list.
      *
      * @throws ModelLoadingException  If anything goes wrong during loading.
