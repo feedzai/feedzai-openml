@@ -25,7 +25,6 @@ import com.feedzai.openml.provider.exception.ModelTrainingException;
 import com.feedzai.openml.provider.model.MachineLearningModelLoader;
 import com.feedzai.openml.util.algorithm.MLAlgorithmEnum;
 import com.google.common.collect.ImmutableList;
-import com.google.common.primitives.Doubles;
 import org.apache.commons.lang3.ArrayUtils;
 import org.junit.Test;
 
@@ -96,7 +95,7 @@ public abstract class AbstractProviderModelBaseTest<M extends ClassificationMLMo
         final double[] scores = model.getClassDistribution(instance);
         final double maxScore = Arrays.stream(scores).max().getAsDouble();
 
-        assertThat(Doubles.asList(scores).indexOf(maxScore))
+        assertThat(Arrays.asList(ArrayUtils.toObject(scores)).indexOf(maxScore))
                 .as("The index of maximum value")
                 .isEqualTo(classificationIndex);
     }
