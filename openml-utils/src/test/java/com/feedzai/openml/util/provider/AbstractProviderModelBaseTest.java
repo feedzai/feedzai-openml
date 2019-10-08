@@ -86,10 +86,8 @@ public abstract class AbstractProviderModelBaseTest<M extends ClassificationMLMo
      *
      * @see ClassificationMLModel
      */
-    @Test
-    public void canGetClassDistributionMaxValueIndex() throws Exception {
-        final M model = getFirstModel();
-        final Instance instance = getDummyInstance();
+    protected void canGetClassDistributionMaxValueIndex(final M model, final Instance instance){
+
         final double[] scores = model.getClassDistribution(instance);
 
         final int classificationIndex = model.classify(instance);
