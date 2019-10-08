@@ -80,19 +80,20 @@ public abstract class AbstractProviderModelBaseTest<M extends ClassificationMLMo
 
 
     /**
-     * Checks the method #classify() to ensure that the providers classify
-     * correctly the index of the maximum value of the scores list.
+     * Verifies that the {@link ClassificationMLModel#classify(Instance)} " returns the index of the greatest value in
+     * the class probability distribution produced by the calling
+     * {@link ClassificationMLModel#getClassDistribution(Instance)} on the model
      *
-     * @throws ModelLoadingException  If anything goes wrong during loading.
-     * @throws ModelTrainingException If anything goes wrong during training.
+     * @see ClassificationMLModel
      */
     @Test
-    public void classifyIndexOfMaxScoresValue() throws ModelLoadingException, ModelTrainingException {
-
+    public void canGetClassDistributionMaxValueIndex() throws Exception {
         final M model = getFirstModel();
         final Instance instance = getDummyInstance();
-        final int classificationIndex = model.classify(instance);
         final double[] scores = model.getClassDistribution(instance);
+
+        final int classificationIndex = model.classify(instance);
+
         final double maxScore = Arrays.stream(scores).max().getAsDouble();
 
         assertThat(Arrays.asList(ArrayUtils.toObject(scores)).indexOf(maxScore))
