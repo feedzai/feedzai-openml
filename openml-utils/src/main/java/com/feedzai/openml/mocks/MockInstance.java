@@ -25,9 +25,9 @@ import com.feedzai.openml.data.schema.NumericValueSchema;
 import com.feedzai.openml.data.schema.StringValueSchema;
 import com.feedzai.openml.util.data.ClassificationDatasetSchemaUtil;
 import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
 
 import java.io.Serializable;
+import java.util.Objects;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
@@ -98,7 +98,7 @@ public class MockInstance implements Instance, Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(this.values);
+        return Objects.hash(this.values);
     }
 
     @Override
@@ -110,7 +110,7 @@ public class MockInstance implements Instance, Serializable {
             return false;
         }
         final MockInstance other = (MockInstance) obj;
-        return Objects.equal(this.values, other.values);
+        return Objects.equals(this.values, other.values);
     }
 
     @Override

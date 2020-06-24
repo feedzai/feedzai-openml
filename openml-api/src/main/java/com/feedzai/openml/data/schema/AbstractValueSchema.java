@@ -18,9 +18,9 @@
 package com.feedzai.openml.data.schema;
 
 import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.Objects;
 import java.io.Serializable;
 
 /**
@@ -78,7 +78,7 @@ public abstract class AbstractValueSchema implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(this.allowMissing);
+        return Objects.hash(this.allowMissing);
     }
 
     @Override
@@ -90,7 +90,7 @@ public abstract class AbstractValueSchema implements Serializable {
             return false;
         }
         final AbstractValueSchema other = (AbstractValueSchema) obj;
-        return Objects.equal(this.allowMissing, other.allowMissing);
+        return Objects.equals(this.allowMissing, other.allowMissing);
     }
 
     @Override

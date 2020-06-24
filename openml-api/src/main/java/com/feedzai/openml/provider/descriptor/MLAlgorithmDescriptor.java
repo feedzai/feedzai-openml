@@ -18,9 +18,9 @@
 package com.feedzai.openml.provider.descriptor;
 
 import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 
+import java.util.Objects;
 import java.net.URL;
 import java.util.Set;
 
@@ -111,7 +111,7 @@ public class MLAlgorithmDescriptor {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(this.algorithmName, this.parameters, this.algorithmType, this.documentation);
+        return Objects.hash(this.algorithmName, this.parameters, this.algorithmType, this.documentation);
     }
 
     @Override
@@ -123,10 +123,10 @@ public class MLAlgorithmDescriptor {
             return false;
         }
         final MLAlgorithmDescriptor other = (MLAlgorithmDescriptor) obj;
-        return Objects.equal(this.algorithmName, other.algorithmName)
-                && Objects.equal(this.parameters, other.parameters)
-                && Objects.equal(this.algorithmType, other.algorithmType)
-                && Objects.equal(this.documentation, other.documentation);
+        return Objects.equals(this.algorithmName, other.algorithmName)
+                && Objects.equals(this.parameters, other.parameters)
+                && Objects.equals(this.algorithmType, other.algorithmType)
+                && Objects.equals(this.documentation, other.documentation);
     }
 
     @Override

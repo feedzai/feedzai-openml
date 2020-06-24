@@ -18,8 +18,8 @@
 package com.feedzai.openml.provider.descriptor.fieldtype;
 
 import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
 
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -75,7 +75,7 @@ public class BooleanFieldType implements ModelParameterType {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(this.defaultTrue);
+        return Objects.hash(this.defaultTrue);
     }
 
     @Override
@@ -87,7 +87,7 @@ public class BooleanFieldType implements ModelParameterType {
             return false;
         }
         final BooleanFieldType other = (BooleanFieldType) obj;
-        return Objects.equal(this.defaultTrue, other.defaultTrue);
+        return Objects.equals(this.defaultTrue, other.defaultTrue);
     }
 
     @Override
