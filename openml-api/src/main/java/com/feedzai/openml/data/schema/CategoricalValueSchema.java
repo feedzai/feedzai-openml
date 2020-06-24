@@ -18,11 +18,11 @@
 package com.feedzai.openml.data.schema;
 
 import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableSortedSet;
 
 import java.util.Set;
+import java.util.Objects;
 import java.util.SortedSet;
 
 /**
@@ -73,7 +73,7 @@ public class CategoricalValueSchema extends AbstractValueSchema {
 
     @Override
     public int hashCode() {
-        return 31 * super.hashCode() + Objects.hashCode(this.nominalValues);
+        return 31 * super.hashCode() + Objects.hash(this.nominalValues);
     }
 
     @Override
@@ -88,7 +88,7 @@ public class CategoricalValueSchema extends AbstractValueSchema {
             return false;
         }
         final CategoricalValueSchema other = (CategoricalValueSchema) obj;
-        return Objects.equal(this.nominalValues, other.nominalValues);
+        return Objects.equals(this.nominalValues, other.nominalValues);
     }
 
     @Override

@@ -18,12 +18,12 @@
 package com.feedzai.openml.data.schema;
 
 import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -150,7 +150,7 @@ public class DatasetSchema implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(this.targetIndex, this.fieldSchemas);
+        return Objects.hash(this.targetIndex, this.fieldSchemas);
     }
 
     @Override
@@ -162,8 +162,8 @@ public class DatasetSchema implements Serializable {
             return false;
         }
         final DatasetSchema other = (DatasetSchema) obj;
-        return Objects.equal(this.targetIndex, other.targetIndex)
-                && Objects.equal(this.fieldSchemas, other.fieldSchemas);
+        return Objects.equals(this.targetIndex, other.targetIndex)
+                && Objects.equals(this.fieldSchemas, other.fieldSchemas);
     }
 
     @Override

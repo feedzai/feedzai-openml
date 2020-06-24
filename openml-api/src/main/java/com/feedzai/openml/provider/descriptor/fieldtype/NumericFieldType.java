@@ -18,9 +18,9 @@
 package com.feedzai.openml.provider.descriptor.fieldtype;
 
 import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -176,7 +176,7 @@ public class NumericFieldType implements ModelParameterType {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(this.minValue, this.maxValue, this.defaultValue, this.parameterType);
+        return Objects.hash(this.minValue, this.maxValue, this.defaultValue, this.parameterType);
     }
 
     @Override
@@ -188,10 +188,10 @@ public class NumericFieldType implements ModelParameterType {
             return false;
         }
         final NumericFieldType other = (NumericFieldType) obj;
-        return Objects.equal(this.minValue, other.minValue)
-                && Objects.equal(this.maxValue, other.maxValue)
-                && Objects.equal(this.defaultValue, other.defaultValue)
-                && Objects.equal(this.parameterType, other.parameterType);
+        return Objects.equals(this.minValue, other.minValue)
+                && Objects.equals(this.maxValue, other.maxValue)
+                && Objects.equals(this.defaultValue, other.defaultValue)
+                && Objects.equals(this.parameterType, other.parameterType);
     }
 
     @Override

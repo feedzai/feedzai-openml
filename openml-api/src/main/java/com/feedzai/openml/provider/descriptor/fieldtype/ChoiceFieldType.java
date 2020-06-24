@@ -18,10 +18,10 @@
 package com.feedzai.openml.provider.descriptor.fieldtype;
 
 import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableSet;
 
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -93,7 +93,7 @@ public class ChoiceFieldType implements ModelParameterType {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(this.allowedValues, this.defaultValue);
+        return Objects.hash(this.allowedValues, this.defaultValue);
     }
 
     @Override
@@ -105,8 +105,8 @@ public class ChoiceFieldType implements ModelParameterType {
             return false;
         }
         final ChoiceFieldType other = (ChoiceFieldType) obj;
-        return Objects.equal(this.allowedValues, other.allowedValues)
-                && Objects.equal(this.defaultValue, other.defaultValue);
+        return Objects.equals(this.allowedValues, other.allowedValues)
+                && Objects.equals(this.defaultValue, other.defaultValue);
     }
 
     @Override

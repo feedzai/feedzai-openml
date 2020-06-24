@@ -18,10 +18,10 @@
 package com.feedzai.openml.data.schema;
 
 import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.Objects;
 import java.io.Serializable;
 
 /**
@@ -102,7 +102,7 @@ public class FieldSchema implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(this.fieldName, this.fieldIndex, this.valueSchema);
+        return Objects.hash(this.fieldName, this.fieldIndex, this.valueSchema);
     }
 
     @Override
@@ -114,9 +114,9 @@ public class FieldSchema implements Serializable {
             return false;
         }
         final FieldSchema other = (FieldSchema) obj;
-        return Objects.equal(this.fieldName, other.fieldName)
-                && Objects.equal(this.fieldIndex, other.fieldIndex)
-                && Objects.equal(this.valueSchema, other.valueSchema);
+        return Objects.equals(this.fieldName, other.fieldName)
+                && Objects.equals(this.fieldIndex, other.fieldIndex)
+                && Objects.equals(this.valueSchema, other.valueSchema);
     }
 
     @Override

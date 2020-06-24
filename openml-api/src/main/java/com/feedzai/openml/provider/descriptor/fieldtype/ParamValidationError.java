@@ -18,8 +18,9 @@
 package com.feedzai.openml.provider.descriptor.fieldtype;
 
 import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
+
+import java.util.Objects;
 
 /**
  * A POJO representing a parameter validation error returned from {@link ModelParameterType#validate(String, String)}.
@@ -65,7 +66,7 @@ public class ParamValidationError {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(this.message);
+        return Objects.hash(this.message);
     }
 
     @Override
@@ -77,7 +78,7 @@ public class ParamValidationError {
             return false;
         }
         final ParamValidationError other = (ParamValidationError) obj;
-        return Objects.equal(this.message, other.message);
+        return Objects.equals(this.message, other.message);
     }
 
     @Override
