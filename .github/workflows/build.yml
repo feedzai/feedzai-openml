@@ -1,0 +1,49 @@
+name: Build OpenML
+
+on:
+  push:
+    branches:
+      - master
+      - 'hf-*'    # hotfix branches
+    tags:
+      - '*.*.*'   # release tag xx.yy.zz
+  pull_request:
+    branches:
+      - master
+      - 'hf-*'
+
+jobs:
+
+  # Build and test job
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - run: |
+          git fetch -f --tags
+          echo exit code $?
+          git tag --list
+
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+
+      - name: Cache Maven packages
+        uses: actions/cache@v2.1.4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: Build and test
+        run: mvn test -B
+
+      - uses: codecov/codecov-action@v1
+        with:
+          fail_ci_if_error: true
