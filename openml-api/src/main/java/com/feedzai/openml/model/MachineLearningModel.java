@@ -42,15 +42,6 @@ public interface MachineLearningModel extends AutoCloseable {
      */
     boolean save(Path dir, String name);
 
-//    /**
-//     * Use a bridge design pattern to access explanations if there are any
-//     *
-//     * @return
-//     */
-//    default <C extends ExplanationsConfig> Optional<ExplanationsAlgorithm<C>> explanationsAlgorithm() {
-//        return Optional.empty();
-//    }
-//
     /**
      * Gets the {@link DatasetSchema} associated with this Machine Learning Model.
      *
