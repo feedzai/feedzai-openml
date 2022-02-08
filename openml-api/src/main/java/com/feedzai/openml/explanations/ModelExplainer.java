@@ -26,20 +26,7 @@ import com.feedzai.openml.model.MachineLearningModel;
  *
  * @since 1.1.1 //QUESTION are we supposed to stop using @since in all repos?
  */
-public abstract class BaseExplanationsAlgorithm<M extends MachineLearningModel> {
-    /**
-     * A {@link MachineLearningModel} which predictions will be explained.
-     */
-    private final M model;
-
-    /**
-     * Base constructor
-     *
-     * @param model the {@link #model}.
-     */
-    public BaseExplanationsAlgorithm(M model) {
-        this.model = model;
-    }
+public interface ModelExplainer<M extends MachineLearningModel> {
 
     /**
      * Gets the feature contribution scores for a particular {@link Instance}.
@@ -47,14 +34,12 @@ public abstract class BaseExplanationsAlgorithm<M extends MachineLearningModel> 
      * @param instance the {@link Instance}.
      * @return An array of feature contribution scores.
      */
-    public abstract double[] getFeatureContributions(final Instance instance);
+    double[] getFeatureContributions(final Instance instance);
 
     /**
-     * Getter.
+     * Getter to enforce the existence of a {@link MachineLearningModel} to be explained.
      *
-     * @return The {@link #model}.
+     * @return The {@link MachineLearningModel}.
      */
-    public M getModel() {
-        return model;
-    }
+    M getModel();
 }
