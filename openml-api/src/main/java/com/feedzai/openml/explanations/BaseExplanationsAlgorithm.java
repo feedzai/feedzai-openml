@@ -15,9 +15,10 @@
  *
  */
 
-package com.feedzai.openml.model;
+package com.feedzai.openml.explanations;
 
 import com.feedzai.openml.data.Instance;
+import com.feedzai.openml.model.MachineLearningModel;
 
 /**
  * A base class for explanation algorithms. Holds any {@link MachineLearningModel} and can compute the
