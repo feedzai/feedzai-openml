@@ -24,7 +24,8 @@ import com.feedzai.openml.model.MachineLearningModel;
  * A base class for explanation algorithms. Holds any {@link MachineLearningModel} and can compute the
  * feature contributes for its predictions through {@link #getFeatureContributions(Instance)}.
  *
- * @since 1.1.1 //QUESTION are we supposed to stop using @since in all repos?
+ * @param <M> Each {@link ModelExplainer} must be associated with an implementation of {@link MachineLearningModel}.
+ * @since 1.1.1
  */
 public interface ModelExplainer<M extends MachineLearningModel> {
 
@@ -35,11 +36,4 @@ public interface ModelExplainer<M extends MachineLearningModel> {
      * @return An array of feature contribution scores.
      */
     double[] getFeatureContributions(final Instance instance);
-
-    /**
-     * Getter to enforce the existence of a {@link MachineLearningModel} to be explained.
-     *
-     * @return The {@link MachineLearningModel}.
-     */
-    M getModel();
 }
