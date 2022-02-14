@@ -21,13 +21,13 @@ import com.feedzai.openml.data.Instance;
 import com.feedzai.openml.model.MachineLearningModel;
 
 /**
- * A base class for explanation algorithms. Holds any {@link MachineLearningModel} and can compute the
- * feature contributes for its predictions through {@link #getFeatureContributions(Instance)}.
+ * An interface for explanation algorithms.
+ * Implementations should probably hold some {@link MachineLearningModel} and this {@link ModelExplainer} will
+ * compute the feature contributions for its predictions through {@link #getFeatureContributions(Instance)}.
  *
- * @param <M> Each {@link ModelExplainer} must be associated with an implementation of {@link MachineLearningModel}.
  * @since 1.1.1
  */
-public interface ModelExplainer<M extends MachineLearningModel> {
+public interface ModelExplainer {
 
     /**
      * Gets the feature contribution scores for a particular {@link Instance}.
