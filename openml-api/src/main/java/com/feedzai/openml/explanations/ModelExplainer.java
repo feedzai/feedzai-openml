@@ -26,6 +26,7 @@ import com.feedzai.openml.model.MachineLearningModel;
  * compute the feature contributions for its predictions through {@link #getFeatureContributions(Instance)}.
  *
  * @since 1.1.1
+ * @author Miguel Lobo (miguel.lobo@feedzai.com)
  */
 public interface ModelExplainer {
 
