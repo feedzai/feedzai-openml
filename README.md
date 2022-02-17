@@ -63,3 +63,18 @@ After providing all the necessary information (your new provider groupId, artifa
 
 This project makes use of the [jgitver Maven plugin](https://github.com/jgitver/jgitver). When using Intellij IDEA you
 must configure the project to skip the plugin altogether. [See the related issue](https://github.com/jgitver/jgitver-maven-plugin/wiki/Intellij-IDEA-configuration).
+
+## Releasing
+
+If the hotfix branch is ready, you needed to create an annotated tag pointing to the hotfix branch head (example below for releasing version 1.2.29):
+
+```bash
+# Ensure the tag is made on the udpated branch
+git fetch -a
+git checkout origin/hf-1.2.X
+git tag -a 1.2.29
+# Your EDITOR will open. Write a good message and save as it is used on Github as a release message
+git push origin 1.2.29
+```
+
+Then you need to [create a new release](https://github.com/feedzai/feedzai-openml/releases/new) with this tag and the description according [to the previous ones](https://github.com/feedzai/feedzai-openml/releases).
