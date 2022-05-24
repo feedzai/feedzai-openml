@@ -22,6 +22,7 @@ import com.google.common.base.Preconditions;
 
 import java.util.Objects;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 /**
  * A concrete implementation of a {@link ModelParameterType} for parameters whose values are textual.
@@ -37,17 +38,45 @@ public class FreeTextFieldType implements ModelParameterType {
     private final String defaultValue;
 
     /**
+     * A regular expression defining a valid input.
+     */
+    private final Pattern validRegex;
+
+    /**
      * Creates a new instance of this class.
      *
      * @param defaultValue  The default value.
      */
     public FreeTextFieldType(final String defaultValue) {
+        this(defaultValue, null);
+    }
+
+    /**
+     * Creates a new instance of this class.
+     *
+     * @param defaultValue  The default value.
+     * @param validRegex    A regex that matches valid inputs.
+     */
+    public FreeTextFieldType(final String defaultValue, final String validRegex) {
         this.defaultValue = Preconditions.checkNotNull(defaultValue, "defaultValue can't be null.");
+        this.validRegex = validRegex != null ? Pattern.compile(validRegex) : null;
     }
 
     @Override
     public Optional<ParamValidationError> validate(final String parameterName, final String parameterValue) {
-        return Optional.empty();
+        if (this.validRegex == null) {
+            return Optional.empty();
+        }
+
+        if (this.validRegex.matcher(parameterValue).matches()) {
+            return Optional.empty();
+        } else {
+            return Optional.of(new ParamValidationError(
+                    parameterName,
+                    parameterValue,
+                    "Should match the following regex: " + this.validRegex
+            ));
+        }
     }
 
     /**
