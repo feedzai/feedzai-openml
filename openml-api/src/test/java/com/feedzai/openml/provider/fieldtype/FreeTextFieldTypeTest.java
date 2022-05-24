@@ -31,7 +31,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class FreeTextFieldTypeTest extends AbstractConfigFieldTypeTest<FreeTextFieldType> {
 
     /**
-     * Tests the {@link FreeTextFieldType#validate(String, String)} method.
+     * Tests the {@link FreeTextFieldType#validate(String, String)} method with no regex validator string.
      */
     @Test
     public void validate() {
@@ -41,6 +41,28 @@ public class FreeTextFieldTypeTest extends AbstractConfigFieldTypeTest<FreeTextF
         assertValidationResult(fieldType, "param0", null, false);
         assertValidationResult(fieldType, "param1", "", false);
         assertValidationResult(fieldType, "param2", "some string", false);
+    }
+
+    /**
+     * Tests the {@link FreeTextFieldType#validate(String, String)} method using the regex validator constructor.
+     */
+    @Test
+    public void validateRegex() {
+        final FreeTextFieldType fieldType = new FreeTextFieldType("1", "^((\\d+(\\.\\d*)?,)*(\\d+(\\.\\d*)?))$");
+
+        // Test valid inputs
+        assertValidationResult(fieldType, "param0", "1", false);
+        assertValidationResult(fieldType, "param0", "1.", false);
+        assertValidationResult(fieldType, "param1", "1.2", false);
+        assertValidationResult(fieldType, "param0", "1.,2", false);
+        assertValidationResult(fieldType, "param2", "1.2,3,4.5", false);
+        assertValidationResult(fieldType, "param3", "1,2,3.4", false);
+
+        // Test invalid inputs
+        assertValidationResult(fieldType, "param4", "", true);
+        assertValidationResult(fieldType, "param5", "1,", true);
+        assertValidationResult(fieldType, "param6", ",1", true);
+        assertValidationResult(fieldType, "param6", "1.2,3.,", true);
     }
 
     /**
